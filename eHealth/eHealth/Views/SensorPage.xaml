@@ -1,0 +1,26 @@
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:eHealth.ViewModels"
+             x:Class="eHealth.Views.SensorPage"
+             Title="Accelerometer Data">
+    <ContentPage.BindingContext>
+        <local:SensorViewModel />
+    </ContentPage.BindingContext>
+    <StackLayout Padding="10">
+        <Button Text="Load Data" Command="{Binding LoadDataCommand}" />
+        <ListView ItemsSource="{Binding AccelerometerDataList}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <Label Text="{Binding DateTime, StringFormat='{0:yyyy-MM-dd HH:mm:ss}'}" />
+                            <Label Text="{Binding ValueX, StringFormat='X: {0:F2}'}" />
+                            <Label Text="{Binding ValueY, StringFormat='Y: {0:F2}'}" />
+                            <Label Text="{Binding ValueY, StringFormat='Z: {0:F2}'}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>
