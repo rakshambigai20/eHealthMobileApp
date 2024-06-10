@@ -4,13 +4,10 @@ using eHealth.Data.Models;
 
 namespace eHealth.Service.IService
 {
-   
-        public interface ISensorService
-        {
-            Task<List<SensorData>> GetAccelerometerDataAsync();
-            Task<List<AggregatedSensorData>> GetAggregatedSensorDataAsync();
+    public interface ISensorService
+    {
+        Task<List<AccelerometerAnalysis>> GetAccelerometerDataAsync();
         void StartAccelerometer();
-            void StopAccelerometer();
-        }
-    
+        void StopAccelerometer();
+    }
 }

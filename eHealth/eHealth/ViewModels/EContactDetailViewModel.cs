@@ -12,12 +12,17 @@ namespace eHealth.ViewModels
     [QueryProperty(nameof(ContactId), nameof(ContactId))]
     public class EContactDetailViewModel : BaseViewModel
     {
-        private string contactId;
+        private int contactId; // Changed to int
         private string name;
         private string relationship;
         private string email;
         private string phoneNumber;
         IEContactService<EmergencyContacts> econtactService = new EContactService();
+
+        public EContactDetailViewModel()
+        {
+            HandleEmergencyCommand = new Command(async () => await HandleEmergency());
+        }
 
         public string Name
         {
@@ -43,7 +48,7 @@ namespace eHealth.ViewModels
             set => SetProperty(ref phoneNumber, value);
         }
 
-        public string ContactId
+        public int ContactId // Changed to int
         {
             get => contactId;
             set
@@ -53,7 +58,9 @@ namespace eHealth.ViewModels
             }
         }
 
-        public async void LoadContactId(string contactId)
+        public Command HandleEmergencyCommand { get; }
+
+        public async void LoadContactId(int contactId)
         {
             try
             {
@@ -67,6 +74,11 @@ namespace eHealth.ViewModels
             {
                 Debug.WriteLine("Failed to Load Item");
             }
+        }
+
+        private async Task HandleEmergency()
+        {
+            await econtactService.HandleEmergency();
         }
     }
 }

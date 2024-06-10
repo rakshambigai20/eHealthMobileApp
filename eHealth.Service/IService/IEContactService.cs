@@ -10,10 +10,11 @@ namespace eHealth.Service.IService
     public interface IEContactService<T>
     {
         Task<List<EmergencyContacts>> GetContacts();
-        Task<EmergencyContacts> GetContact(string id);
+        Task<EmergencyContacts> GetContact(int id);
         Task AddContact(T contact);
         Task UpdateContact(T contact);
-        Task RemoveContact(String id);
+        Task RemoveContact(int id);
+        Task HandleEmergency();
     }
 }
 

@@ -10,7 +10,6 @@ namespace eHealth.Data.Models
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public string State { get; set; }
-        public double AverageReading { get; set; }
-        public double OverallMagnitude { get; set; } 
+        //public string LocationDescription { get; set; }
     }
 }

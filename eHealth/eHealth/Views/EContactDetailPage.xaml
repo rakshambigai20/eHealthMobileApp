@@ -20,6 +20,9 @@
 
                 <Label Text="Phone Number" FontAttributes="Bold"/>
                 <Label Text="{Binding PhoneNumber}"/>
+
+                <!-- Add the Emergency Button for testing-->
+                <Button Text="Handle Emergency" Command="{Binding HandleEmergencyCommand}" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

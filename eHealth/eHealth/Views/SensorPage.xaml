@@ -1,4 +1,5 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:eHealth.ViewModels"
              x:Class="eHealth.Views.SensorPage"
@@ -6,21 +7,41 @@
     <ContentPage.BindingContext>
         <local:SensorViewModel />
     </ContentPage.BindingContext>
-    <StackLayout Padding="10">
-        <Button Text="Load Data" Command="{Binding LoadDataCommand}" />
-        <ListView ItemsSource="{Binding AccelerometerDataList}">
+    <Grid Padding="10">
+        <!-- Define the row definitions -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!-- For the button -->
+            <RowDefinition Height="*" />
+            <!-- For the ListView -->
+        </Grid.RowDefinitions>
+
+        <!-- Load Data Button -->
+        <Button Grid.Row="0" Text="Load Data" Command="{Binding LoadDataCommand}" 
+                FontSize="18" FontAttributes="Bold" BackgroundColor="LightBlue"
+                TextColor="White" HorizontalOptions="FillAndExpand" />
+
+        <!-- ListView for displaying accelerometer data -->
+        <ListView Grid.Row="1" ItemsSource="{Binding AccelerometerDataList}" HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout>
-                            <Label Text="{Binding DateTime, StringFormat='{0:yyyy-MM-dd HH:mm:ss}'}" />
-                            <Label Text="{Binding ValueX, StringFormat='X: {0:F2}'}" />
-                            <Label Text="{Binding ValueY, StringFormat='Y: {0:F2}'}" />
-                            <Label Text="{Binding ValueY, StringFormat='Z: {0:F2}'}" />
-                        </StackLayout>
+                        <Frame Margin="5" Padding="10" BorderColor="LightGray" CornerRadius="10">
+                            <StackLayout Orientation="Vertical">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                                    <Label Text="{Binding StartTime, StringFormat='{0:yyyy-MM-dd HH:mm:ss}'}" 
+                                           FontSize="16" FontAttributes="Bold" TextColor="DarkBlue" />
+                                    <Label Text=" - " FontSize="16" FontAttributes="Bold" TextColor="DarkBlue" />
+                                    <Label Text="{Binding EndTime, StringFormat='{0:yyyy-MM-dd HH:mm:ss}'}" 
+                                           FontSize="16" FontAttributes="Bold" TextColor="DarkBlue" />
+                                </StackLayout>
+                                <Label Text="{Binding State}" FontSize="18" FontAttributes="Bold" 
+                                       TextColor="Green" HorizontalOptions="Center" />
+                            </StackLayout>
+                        </Frame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-    </StackLayout>
+    </Grid>
 </ContentPage>

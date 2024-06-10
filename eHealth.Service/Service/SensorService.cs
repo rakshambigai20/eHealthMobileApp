@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -26,7 +25,7 @@ namespace eHealth.Service.Service
             _isAccelerometerActive = false;
             _lastMovementTime = DateTime.Now;
             _currentHourData = new List<SensorData>();
-            _hourlyTimer = new Timer(500000); // 1 hour interval
+            _hourlyTimer = new Timer(3600000); // 1 hour interval (3600000 milliseconds)
             _hourlyTimer.Elapsed += AggregateHourlyData;
             _hourlyTimer.Start();
         }
@@ -70,36 +69,42 @@ namespace eHealth.Service.Service
             };
 
             _currentHourData.Add(sensorData);
-            //await _database.SaveSensorDataAsync(sensorData);
+            // Uncomment the line below if you want to save each reading immediately
+            // await _database.SaveSensorDataAsync(sensorData);
         }
 
         private async void AggregateHourlyData(object sender, ElapsedEventArgs e)
         {
             if (_currentHourData.Any())
             {
+                var startTime = _currentHourData.First().DateTime;
+                var endTime = _currentHourData.Last().DateTime;
                 var avgX = _currentHourData.Average(d => d.ValueX);
                 var avgY = _currentHourData.Average(d => d.ValueY);
                 var avgZ = _currentHourData.Average(d => d.ValueZ);
-                var hour = DateTime.Now.Date.AddHours(DateTime.Now.Hour);
+                var overallMagnitude = Math.Sqrt(avgX * avgX + avgY * avgY + avgZ * avgZ);
+                var averageReading = (_currentHourData.Average(d => Math.Sqrt(d.ValueX * d.ValueX + d.ValueY * d.ValueY + d.ValueZ * d.ValueZ)));
 
-                var aggregatedData = new AggregatedSensorData
+                var analysisData = new AccelerometerAnalysis
                 {
-                    ValueX = avgX,
-                    ValueY = avgY,
-                    ValueZ = avgZ,
-                    Hour = hour.ToString("HH:mm",CultureInfo.InvariantCulture)
+                    StartTime = startTime,
+                    EndTime = endTime,
+                    State = "Active", // Or some other logic to determine state
                 };
 
-                await _database.SaveAggregatedSensorDataAsync(aggregatedData);
-                
+                await _database.SaveAccelerometerAnalysisAsync(analysisData);
+
+                // Clear the current hour data after aggregation
+                _currentHourData.Clear();
             }
         }
 
-        public async Task<List<SensorData>> GetAccelerometerDataAsync()
+        public async Task<List<AccelerometerAnalysis>> GetAccelerometerDataAsync()
         {
-            return await _database.GetAllSensorDataAsync();
+            return await _database.GetAllAccelerometerAnalysisAsync();
         }
 
+        // Keeping the old method for aggregated sensor data
         public async Task<List<AggregatedSensorData>> GetAggregatedSensorDataAsync()
         {
             return await _database.GetAllAggregatedSensorDataAsync();

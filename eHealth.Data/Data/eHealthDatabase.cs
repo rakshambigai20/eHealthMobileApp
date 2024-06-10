@@ -1,45 +1,51 @@
 ﻿using SQLite;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using eHealth.Data.Models;
-using System.Globalization;
 using System;
 
 namespace eHealth.Data
 {
     public class eHealthDatabase
     {
-        private readonly SQLiteAsyncConnection database;
+        private readonly SQLiteAsyncConnection _database;
 
         public eHealthDatabase(string dbPath)
         {
-            database = new SQLiteAsyncConnection(dbPath);
+            _database = new SQLiteAsyncConnection(dbPath);
         }
 
         public async Task InitializeAsync()
         {
-            await database.CreateTableAsync<User>();
-            await database.CreateTableAsync<SensorData>();
-            await database.CreateTableAsync<EmergencyContacts>();
-            await database.CreateTableAsync<AggregatedSensorData>();
-            await database.CreateTableAsync<AccelerometerAnalysis>(); // Ensure the new table is created
+            await CreateTablesAsync();
         }
+
+        private async Task CreateTablesAsync()
+        {
+            // Create new tables with the correct schema
+            await _database.CreateTableAsync<User>();
+            await _database.CreateTableAsync<SensorData>();
+            await _database.CreateTableAsync<EmergencyContacts>();
+            await _database.CreateTableAsync<AggregatedSensorData>();
+            await _database.CreateTableAsync<AccelerometerAnalysis>();
+        }
+
         public static string FormatDateTime(long ticks)
         {
             DateTime dateTime = new DateTime(ticks);
             return dateTime.ToString("dd:MM:yyyy HH:mm:ss", CultureInfo.InvariantCulture);
         }
 
-
         // User CRUD operations
         public Task<List<User>> GetUsersAsync()
         {
-            return database.Table<User>().ToListAsync();
+            return _database.Table<User>().ToListAsync();
         }
 
         public Task<User> GetUserAsync(int id)
         {
-            return database.Table<User>()
+            return _database.Table<User>()
                             .Where(i => i.UserId == id)
                             .FirstOrDefaultAsync();
         }
@@ -48,104 +54,110 @@ namespace eHealth.Data
         {
             if (user.UserId != 0)
             {
-                return database.UpdateAsync(user);
+                return _database.UpdateAsync(user);
             }
             else
             {
-                return database.InsertAsync(user);
+                return _database.InsertAsync(user);
             }
         }
 
         public Task<int> DeleteUserAsync(User user)
         {
-            return database.DeleteAsync(user);
+            return _database.DeleteAsync(user);
         }
 
         // SensorData CRUD operations
-        public Task<SensorData> GetSensorAsync(System.DateTime date)
+        public Task<SensorData> GetSensorAsync(DateTime date)
         {
-            return database.Table<SensorData>()
+            return _database.Table<SensorData>()
                             .Where(i => i.DateTime == date)
                             .FirstOrDefaultAsync();
         }
 
         public Task<int> SaveSensorDataAsync(SensorData sensorData)
         {
-            return database.InsertAsync(sensorData);
+            return _database.InsertAsync(sensorData);
         }
 
         public Task<List<SensorData>> GetAllSensorDataAsync()
         {
-            return database.Table<SensorData>().ToListAsync();
+            return _database.Table<SensorData>().ToListAsync();
         }
 
         public Task<int> DeleteSensorAsync(SensorData sensor)
         {
-            return database.DeleteAsync(sensor);
+            return _database.DeleteAsync(sensor);
         }
 
         public Task<int> DeleteAllSensorDataAsync()
         {
-            return database.DeleteAllAsync<SensorData>();
+            return _database.DeleteAllAsync<SensorData>();
         }
 
         // AggregatedSensorData CRUD operations
         public Task<int> SaveAggregatedSensorDataAsync(AggregatedSensorData aggregatedSensorData)
         {
-            return database.InsertAsync(aggregatedSensorData);
+            return _database.InsertAsync(aggregatedSensorData);
         }
 
         public Task<List<AggregatedSensorData>> GetAllAggregatedSensorDataAsync()
         {
-            return database.Table<AggregatedSensorData>().ToListAsync();
+            return _database.Table<AggregatedSensorData>().ToListAsync();
         }
 
         // AccelerometerAnalysis CRUD operations
-        public Task<int> SaveAnalysisDataAsync(AccelerometerAnalysis analysis)
+        public Task<int> SaveAccelerometerAnalysisAsync(AccelerometerAnalysis analysis)
         {
-            return database.InsertAsync(analysis);
+            return _database.InsertAsync(analysis);
         }
 
-        public Task<List<AccelerometerAnalysis>> GetAllAnalysisDataAsync()
+        public Task<List<AccelerometerAnalysis>> GetAllAccelerometerAnalysisAsync()
         {
-            return database.Table<AccelerometerAnalysis>().ToListAsync();
+            return _database.Table<AccelerometerAnalysis>().ToListAsync();
         }
 
         // EmergencyContacts CRUD operations
         public Task<List<EmergencyContacts>> GetEmergencyContactsAsync()
         {
-            return database.Table<EmergencyContacts>().ToListAsync();
+            return _database.Table<EmergencyContacts>().ToListAsync();
         }
 
         public Task<List<EmergencyContacts>> GetEmergencyContactsForUserAsync(int userId)
         {
-            return database.Table<EmergencyContacts>()
+            return _database.Table<EmergencyContacts>()
                            .Where(i => i.UserId == userId)
                            .ToListAsync();
         }
 
-        public Task<EmergencyContacts> GetEmergencyContactAsync(string id)
+        public Task<EmergencyContacts> GetEmergencyContactAsync(int id)
         {
-            return database.Table<EmergencyContacts>()
+            return _database.Table<EmergencyContacts>()
                             .Where(i => i.ContactId == id)
                             .FirstOrDefaultAsync();
         }
 
-        public Task<int> SaveEmergencyContactAsync(EmergencyContacts contact)
+        public async Task<int> SaveEmergencyContactAsync(EmergencyContacts contact)
         {
-            if (contact.ContactId != null)
+            if (contact.ContactId != 0)
             {
-                return database.UpdateAsync(contact);
+                Console.WriteLine($"Updating Emergency Contact: {contact.ContactId}");
+                var result = await _database.UpdateAsync(contact);
+                Console.WriteLine($"Update result: {result}");
+                return result;
             }
             else
             {
-                return database.InsertAsync(contact);
+                Console.WriteLine("Inserting new Emergency Contact");
+                var result = await _database.InsertAsync(contact);
+                Console.WriteLine($"Insert result: {result}");
+                return result;
             }
         }
 
         public Task<int> DeleteEmergencyContactAsync(EmergencyContacts contact)
         {
-            return database.DeleteAsync(contact);
+            return _database.DeleteAsync(contact);
         }
     }
 }

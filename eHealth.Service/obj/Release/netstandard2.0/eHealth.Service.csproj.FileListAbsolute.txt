@@ -1,0 +1,14 @@
+C:\Users\balar\source\repos\eHealth\eHealth.Service\bin\Release\netstandard2.0\eHealth.Service.deps.json
+C:\Users\balar\source\repos\eHealth\eHealth.Service\bin\Release\netstandard2.0\eHealth.Service.dll
+C:\Users\balar\source\repos\eHealth\eHealth.Service\bin\Release\netstandard2.0\eHealth.Service.pdb
+C:\Users\balar\source\repos\eHealth\eHealth.Service\bin\Release\netstandard2.0\eHealth.Data.dll
+C:\Users\balar\source\repos\eHealth\eHealth.Service\bin\Release\netstandard2.0\eHealth.Data.pdb
+C:\Users\balar\source\repos\eHealth\eHealth.Service\obj\Release\netstandard2.0\eHealth.Service.csproj.AssemblyReference.cache
+C:\Users\balar\source\repos\eHealth\eHealth.Service\obj\Release\netstandard2.0\eHealth.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\balar\source\repos\eHealth\eHealth.Service\obj\Release\netstandard2.0\eHealth.Service.AssemblyInfoInputs.cache
+C:\Users\balar\source\repos\eHealth\eHealth.Service\obj\Release\netstandard2.0\eHealth.Service.AssemblyInfo.cs
+C:\Users\balar\source\repos\eHealth\eHealth.Service\obj\Release\netstandard2.0\eHealth.Service.csproj.CoreCompileInputs.cache
+C:\Users\balar\source\repos\eHealth\eHealth.Service\obj\Release\netstandard2.0\eHealth.Service.sourcelink.json
+C:\Users\balar\source\repos\eHealth\eHealth.Service\obj\Release\netstandard2.0\eHealth..7B0A630F.Up2Date
+C:\Users\balar\source\repos\eHealth\eHealth.Service\obj\Release\netstandard2.0\eHealth.Service.dll
+C:\Users\balar\source\repos\eHealth\eHealth.Service\obj\Release\netstandard2.0\eHealth.Service.pdb

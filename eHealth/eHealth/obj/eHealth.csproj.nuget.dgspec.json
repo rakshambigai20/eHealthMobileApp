@@ -56,6 +56,14 @@
               "version": "[2.0.3, )",
               "autoReferenced": true
             },
+            "OxyPlot.Xamarin.Forms": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Xam.Plugins.Messaging": {
+              "target": "Package",
+              "version": "[5.2.0, )"
+            },
             "Xamarin.Essentials": {
               "target": "Package",
               "version": "[1.8.1, )"
@@ -147,6 +155,14 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
+            },
+            "OxyPlot.Xamarin.Forms": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Xam.Plugins.Messaging": {
+              "target": "Package",
+              "version": "[5.2.0, )"
             },
             "Xamarin.Essentials": {
               "target": "Package",
@@ -243,9 +259,17 @@
               "target": "Package",
               "version": "[13.0.3, )"
             },
+            "OxyPlot.Xamarin.Forms": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
             "Refractored.MvvmHelpers": {
               "target": "Package",
               "version": "[1.6.2, )"
+            },
+            "Xam.Plugins.Messaging": {
+              "target": "Package",
+              "version": "[5.2.0, )"
             },
             "Xamarin.Essentials": {
               "target": "Package",

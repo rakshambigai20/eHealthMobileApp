@@ -5,7 +5,6 @@ using Xamarin.Essentials;
 using eHealth.Data.Models;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -41,9 +40,9 @@ namespace eHealth.Droid.Services
 
         public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
         {
+            StartForegroundService(); // Call this immediately
             RequestIgnoreBatteryOptimizations();
             AcquireWakeLock();
-            StartForegroundService();
             Accelerometer.ReadingChanged += Accelerometer_ReadingChanged;
             _dataCollectionTimer.Elapsed += OnDataCollectionTimerElapsed;
 
@@ -118,7 +117,7 @@ namespace eHealth.Droid.Services
             StopSelf();
         }
 
-        private async void Accelerometer_ReadingChanged(object sender, AccelerometerChangedEventArgs e)
+        private void Accelerometer_ReadingChanged(object sender, AccelerometerChangedEventArgs e)
         {
             var data = e.Reading;
             var sensorData = new AccelerometerData
@@ -126,19 +125,8 @@ namespace eHealth.Droid.Services
                 X = data.Acceleration.X,
                 Y = data.Acceleration.Y,
                 Z = data.Acceleration.Z,
-                Timestamp = DateTime.Now,
+                Timestamp = DateTime.Now
             };
-            var accelerometerData = new SensorData
-            {
-                ValueX = data.Acceleration.X,
-                ValueY = data.Acceleration.Y,
-                ValueZ = data.Acceleration.Z,
-                DateTime = DateTime.Now,
-            };
-
-            
-                await _database.SaveSensorDataAsync(accelerometerData);
-            
 
             lock (_accelerometerDataList)
             {
@@ -146,7 +134,7 @@ namespace eHealth.Droid.Services
             }
         }
 
-        private void OnDataCollectionTimerElapsed(object sender, ElapsedEventArgs e)
+        private async void OnDataCollectionTimerElapsed(object sender, ElapsedEventArgs e)
         {
             List<AccelerometerData> dataToAnalyze;
             DateTime intervalEndTime = DateTime.Now;
@@ -159,18 +147,65 @@ namespace eHealth.Droid.Services
 
             if (dataToAnalyze.Count > 0)
             {
+                double averageMagnitude = dataToAnalyze.Average(d => d.Magnitude);
+                var location = await GetLocationAsync();
+
+                var sensorData = new SensorData
+                {
+                    ValueX = dataToAnalyze.Average(d => d.X),
+                    ValueY = dataToAnalyze.Average(d => d.Y),
+                    ValueZ = dataToAnalyze.Average(d => d.Z),
+                    Magnitude = averageMagnitude,
+                    DateTime = intervalEndTime,
+                    Latitude = location?.Latitude ?? 0,
+                    Longitude = location?.Longitude ?? 0
+                };
+
+                //Task.Run(async () => await _database.SaveSensorDataAsync(sensorData));
+
+                // Call the AnalyzeAccelerometerData method
                 AnalyzeAccelerometerData(dataToAnalyze, _intervalStartTime, intervalEndTime);
             }
 
             _intervalStartTime = intervalEndTime;
         }
 
+        private async Task<Location> GetLocationAsync()
+        {
+            try
+            {
+                var status = await MainThread.InvokeOnMainThreadAsync(async () => await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>());
+                if (status != PermissionStatus.Granted)
+                {
+                    status = await MainThread.InvokeOnMainThreadAsync(async () => await Permissions.RequestAsync<Permissions.LocationWhenInUse>());
+                }
+
+                if (status == PermissionStatus.Granted)
+                {
+                    var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+                    var location = await Geolocation.GetLocationAsync(request);
+
+                    if (location != null)
+                    {
+                        return location;
+                    }
+                }
+                else
+                {
+                    throw new Exception("Location permission denied");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error getting location: {ex.Message}");
+            }
+            return null;
+        }
+
         private void AnalyzeAccelerometerData(List<AccelerometerData> data, DateTime startTime, DateTime endTime)
         {
             double threshold = 1.2; // Example threshold value for movement
-            bool isInMotion = data.Any(d => Math.Sqrt(d.X * d.X + d.Y * d.Y + d.Z * d.Z) > threshold);
-            double averageReading = data.Average(d => Math.Sqrt(d.X * d.X + d.Y * d.Y + d.Z * d.Z));
-            double overallMagnitude = data.Sum(d => Math.Sqrt(d.X * d.X + d.Y * d.Y + d.Z * d.Z));
+            bool isInMotion = data.Any(d => d.Magnitude > threshold);
 
             string currentState = isInMotion ? "In Motion" : "Idle";
             System.Diagnostics.Debug.WriteLine($"Device state: {currentState}");
@@ -182,12 +217,11 @@ namespace eHealth.Droid.Services
                     StartTime = _previousStateStartTime,
                     EndTime = startTime,
                     State = _previousState,
-                    AverageReading = averageReading,
-                    OverallMagnitude = overallMagnitude // Save the overall magnitude
                 };
 
                 // Save analysis data to the database
-                Task.Run(async () => await SaveAnalysisDataAsync(analysisData));
+                Task.Run(async () => await SaveAccelerometerAnalysisAsync(analysisData));
+                System.Diagnostics.Debug.WriteLine($"Analysis data saved: StartTime={analysisData.StartTime}, EndTime={analysisData.EndTime}, State={analysisData.State}");
 
                 // Update previous state
                 _previousState = currentState;
@@ -195,11 +229,11 @@ namespace eHealth.Droid.Services
             }
         }
 
-        private async Task SaveAnalysisDataAsync(eHealth.Data.Models.AccelerometerAnalysis analysis)
+        private async Task SaveAccelerometerAnalysisAsync(eHealth.Data.Models.AccelerometerAnalysis analysis)
         {
             try
             {
-                await _database.SaveAnalysisDataAsync(analysis);
+                await _database.SaveAccelerometerAnalysisAsync(analysis);
                 System.Diagnostics.Debug.WriteLine("Analysis data saved successfully.");
             }
             catch (Exception ex)
@@ -231,7 +265,8 @@ namespace eHealth.Droid.Services
         public double X { get; set; }
         public double Y { get; set; }
         public double Z { get; set; }
-        public DateTime Timestamp { get; set; } // Changed to string
+        public DateTime Timestamp { get; set; }
+        public double Magnitude => Math.Sqrt(X * X + Y * Y + Z * Z);
     }
 
     [BroadcastReceiver(Enabled = true, Exported = false)]

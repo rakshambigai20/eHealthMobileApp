@@ -36,7 +36,12 @@ namespace eHealth.Droid
             {
                 Manifest.Permission.WakeLock,
                 Manifest.Permission.ForegroundService,
-                Manifest.Permission.RequestIgnoreBatteryOptimizations
+                Manifest.Permission.RequestIgnoreBatteryOptimizations,
+                Manifest.Permission.ReadExternalStorage,
+                Manifest.Permission.WriteExternalStorage,
+                Manifest.Permission.CallPhone,
+                Manifest.Permission.SendSms,
+                Manifest.Permission.Internet
             };
 
             if (!CheckPermissions(permissions))

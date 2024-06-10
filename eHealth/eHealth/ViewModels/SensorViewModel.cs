@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using eHealth.Service.IService;
-using eHealth.Service.Service;
 using eHealth.Data.Models;
 
 namespace eHealth.ViewModels
@@ -10,12 +9,12 @@ namespace eHealth.ViewModels
     public class SensorViewModel : BaseViewModel
     {
         private ISensorService _sensorService;
-        public ObservableCollection<AggregatedSensorData> AccelerometerDataList { get; }
+        public ObservableCollection<AccelerometerAnalysis> AccelerometerDataList { get; }
 
         public SensorViewModel()
         {
             _sensorService = App.SensorService;
-            AccelerometerDataList = new ObservableCollection<AggregatedSensorData>();
+            AccelerometerDataList = new ObservableCollection<AccelerometerAnalysis>();
 
             LoadDataCommand = new Command(async () => await LoadDataAsync());
 
@@ -27,7 +26,7 @@ namespace eHealth.ViewModels
 
         private async Task LoadDataAsync()
         {
-            var data = await _sensorService.GetAggregatedSensorDataAsync();
+            var data = await _sensorService.GetAccelerometerDataAsync();
             AccelerometerDataList.Clear();
             foreach (var item in data)
             {
