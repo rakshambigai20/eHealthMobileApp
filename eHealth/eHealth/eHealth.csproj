@@ -24,11 +24,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\AddUserDetailsPage.xaml.cs">
+      <DependentUpon>AddUserDetailsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\AddEmergencyContactPage.xaml.cs">
       <DependentUpon>AddEmergencyContactPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\EContactDetailPage.xaml.cs">
       <DependentUpon>EContactDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\UserPage.xaml.cs">
+      <DependentUpon>UserPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\EContactPage.xaml.cs">
       <DependentUpon>EContactPage.xaml</DependentUpon>
@@ -36,10 +42,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\SensorPage.xaml">
+    <EmbeddedResource Update="Views\ModifyEContactDetailPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\UserPage.xaml">
+    <EmbeddedResource Update="Views\SensorPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

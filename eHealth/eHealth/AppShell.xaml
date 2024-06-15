@@ -45,4 +45,5 @@
 
     <!-- Register route for EContactDetailPage -->
     <ShellContent Route="EContactDetailPage" ContentTemplate="{DataTemplate local:EContactDetailPage}" />
+    
 </Shell>

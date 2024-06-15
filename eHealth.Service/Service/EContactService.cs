@@ -8,15 +8,21 @@ using System.Threading.Tasks;
 using System.IO;
 using Xamarin.Essentials;
 using Plugin.Messaging;
+using System.Net;
+using System.Net.Mail;
+using eHealth.Services;
 
 namespace eHealth.Service.Service
 {
     public class EContactService : IEContactService<EmergencyContacts>
     {
         private readonly eHealthDatabase _database;
+        IUserService<User> _userService;
+
 
         public EContactService()
         {
+            _userService = new UserService();
             _database = new eHealthDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "eHealth.db3"));
         }
 
@@ -34,19 +40,9 @@ namespace eHealth.Service.Service
         {
             return _database.GetEmergencyContactAsync(id);
         }
-
-        public async Task<(string PhoneNumber, string EmailAddress)> GetContactDetailsAsync(int contactId)
+        public Task<EmergencyContacts> GetContactbyEmail(string id)
         {
-            var contact = await _database.GetEmergencyContactAsync(contactId);
-
-            if (contact != null)
-            {
-                return (contact.PhoneNumber, contact.Email);
-            }
-            else
-            {
-                return (null, null); // Handle this appropriately in your application
-            }
+            return _database.GetEmergencyContactbyEmailAsync(id);
         }
 
         public Task AddContact(EmergencyContacts contact)
@@ -88,20 +84,40 @@ namespace eHealth.Service.Service
             }
         }
 
-        public void SendEmail(string emailAddress)
+        public async void SendEmail(string emailAddress, string senderEmail, string senderPassword)
         {
+            User user =await _userService.GetUser();
+            EmergencyContacts contact = await GetContactbyEmail(emailAddress);
             try
             {
-                var emailMessenger = CrossMessaging.Current.EmailMessenger;
-                if (emailMessenger.CanSendEmail)
+                var smtpClient = new SmtpClient("smtp.gmail.com")
                 {
-                    var email = new EmailMessageBuilder()
-                        .To(emailAddress)
-                        .Subject("Alert!")
-                        .Body("Abnormal activity")
-                        .Build();
-                    emailMessenger.SendEmail(email);
-                }
+                    Port = 587,
+                    Credentials = new NetworkCredential(senderEmail, senderPassword),
+                    EnableSsl = true,
+                };
+
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress(senderEmail),
+                    Subject = "Urgent: Abnormal Activity Detected",
+                    Body = $"<h1>Urgent: Abnormal Activity Detected</h1>" +
+                   $"<p>Dear {contact.Name},</p>" +
+                   $"<p>We have detected abnormal activity in the account of {user.Name}. Please take the following actions immediately:</p>" +
+                   "<ul>" +
+                   "<li>Check on the individual to ensure their safety.</li>" +
+                   "<li>Review recent activities in the eHealth app.</li>" +
+                   "<li>If you suspect any issues or if the individual needs help, contact emergency services.</li>" +
+                   "</ul>" +
+                   "<p>If you have any questions or need further assistance, please contact our support team.</p>" +
+                   "<p>Thank you for your prompt attention to this matter.</p>" +
+                   "<p>Best regards,</p>" +
+                   "<p>The eHealth Team</p>",
+                    IsBodyHtml = true,
+                };
+                mailMessage.To.Add(emailAddress);
+
+                smtpClient.Send(mailMessage);
             }
             catch (Exception ex)
             {
@@ -118,19 +134,21 @@ namespace eHealth.Service.Service
             }
         }
 
-        public async Task HandleEmergency()
+        public async Task HandleEmergency(string senderEmail, string senderPassword)
         {
-            var contactDetails = await GetContactDetailsAsync(1); // Assuming you want the contact with id 1
-
-            if (contactDetails.PhoneNumber != null && contactDetails.EmailAddress != null)
+            var allContacts = await GetContacts();
+            foreach (var contact in allContacts)
             {
-                //MakePhoneCall(contactDetails.PhoneNumber);
-                SendSms(contactDetails.PhoneNumber);
-                SendEmail(contactDetails.EmailAddress);
-            }
-            else
-            {
-                Console.WriteLine("Contact details not found.");
+                if (contact.PhoneNumber != null && contact.Email != null)
+                {
+                    // MakePhoneCall(contact.PhoneNumber);
+                    SendSms(contact.PhoneNumber);
+                    SendEmail(contact.Email, senderEmail, senderPassword);
+                }
+                else
+                {
+                    Console.WriteLine($"Contact details not found for {contact.Name}.");
+                }
             }
         }
     }

@@ -1,7 +1,6 @@
 ﻿using eHealth.Data.Models;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,7 +13,6 @@ namespace eHealth.Service.IService
         Task AddContact(T contact);
         Task UpdateContact(T contact);
         Task RemoveContact(int id);
-        Task HandleEmergency();
+        Task HandleEmergency(string senderEmail, string senderPassword);
     }
 }
-

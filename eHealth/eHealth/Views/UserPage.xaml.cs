@@ -1,48 +1,33 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using eHealth.Models;
 using eHealth.ViewModels;
-using eHealth.Data.Models;
+using eHealth.Views;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace eHealth.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UserPage : ContentPage
     {
+        UserViewModel _viewModel;
+
         public UserPage()
         {
             InitializeComponent();
-        }
 
+            BindingContext = _viewModel = new UserViewModel();
+        }
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            var viewModel = BindingContext as UserViewModel;
-            if (viewModel != null)
-            {
-                viewModel.LoadUsersCommand.Execute(null);
-            }
+            _viewModel.LoadUserCommand.Execute(null);
         }
 
-        private void Button_Clicked(object sender, System.EventArgs e)
-        {
-            var viewModel = BindingContext as UserViewModel;
-            if (viewModel != null)
-            {
-                // Create the user object from the input fields
-                var user = new User
-                {
-                    Name = NameEntry.Text,
-                    DOB = DOBPicker.Date,
-                    Email = EmailEntry.Text,
-                    PhoneNumber = MobileEntry.Text
-                };
 
-                // Execute the command if it's valid to do so
-                if (viewModel.AddUserCommand.CanExecute(user))
-                {
-                    viewModel.AddUserCommand.Execute(user);
-                }
-            }
-        }
     }
 }

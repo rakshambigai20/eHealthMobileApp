@@ -27,7 +27,6 @@ namespace eHealth.Data
             await _database.CreateTableAsync<User>();
             await _database.CreateTableAsync<SensorData>();
             await _database.CreateTableAsync<EmergencyContacts>();
-            await _database.CreateTableAsync<AggregatedSensorData>();
             await _database.CreateTableAsync<AccelerometerAnalysis>();
         }
 
@@ -43,10 +42,9 @@ namespace eHealth.Data
             return _database.Table<User>().ToListAsync();
         }
 
-        public Task<User> GetUserAsync(int id)
+        public Task<User> GetUserAsync()
         {
             return _database.Table<User>()
-                            .Where(i => i.UserId == id)
                             .FirstOrDefaultAsync();
         }
 
@@ -95,16 +93,7 @@ namespace eHealth.Data
             return _database.DeleteAllAsync<SensorData>();
         }
 
-        // AggregatedSensorData CRUD operations
-        public Task<int> SaveAggregatedSensorDataAsync(AggregatedSensorData aggregatedSensorData)
-        {
-            return _database.InsertAsync(aggregatedSensorData);
-        }
-
-        public Task<List<AggregatedSensorData>> GetAllAggregatedSensorDataAsync()
-        {
-            return _database.Table<AggregatedSensorData>().ToListAsync();
-        }
+        
 
         // AccelerometerAnalysis CRUD operations
         public Task<int> SaveAccelerometerAnalysisAsync(AccelerometerAnalysis analysis)
@@ -134,6 +123,12 @@ namespace eHealth.Data
         {
             return _database.Table<EmergencyContacts>()
                             .Where(i => i.ContactId == id)
+                            .FirstOrDefaultAsync();
+        }
+        public Task<EmergencyContacts> GetEmergencyContactbyEmailAsync(string id)
+        {
+            return _database.Table<EmergencyContacts>()
+                            .Where(i => i.Email == id)
                             .FirstOrDefaultAsync();
         }
 

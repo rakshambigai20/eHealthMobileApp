@@ -1,27 +1,25 @@
-﻿using eHealth.Data.Models;
-using eHealth.Views;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
-using Xamarin.Forms;
-using eHealth.Service.Service;
+using eHealth.Data.Models;
 using eHealth.Service.IService;
-using eHealth.Models;
-
+using eHealth.Service.Service;
+using eHealth.Views;
+using Xamarin.Forms;
 
 namespace eHealth.ViewModels
 {
     public class EContactViewModel : BaseViewModel
     {
         private EmergencyContacts _selectedContact;
-        IEContactService<EmergencyContacts> eContactService;
+        private readonly IEContactService<EmergencyContacts> eContactService;
 
         public ObservableCollection<EmergencyContacts> Contacts { get; }
         public Command LoadContactsCommand { get; }
         public Command AddContactCommand { get; }
         public Command<EmergencyContacts> ContactTapped { get; }
+        public Command<EmergencyContacts> DeleteContactCommand { get; }
 
         public EContactViewModel()
         {
@@ -30,9 +28,9 @@ namespace eHealth.ViewModels
             Contacts = new ObservableCollection<EmergencyContacts>();
             LoadContactsCommand = new Command(async () => await ExecuteLoadContactsCommand());
 
-            ContactTapped = new Command<EmergencyContacts>(OnContactSelected);
-
             AddContactCommand = new Command(OnAddContact);
+            ContactTapped = new Command<EmergencyContacts>(OnContactSelected);
+            DeleteContactCommand = new Command<EmergencyContacts>(OnDeleteContact);
         }
 
         async Task ExecuteLoadContactsCommand()
@@ -41,12 +39,15 @@ namespace eHealth.ViewModels
 
             try
             {
-                Contacts.Clear();
-                var allContacts = await eContactService.GetContacts() ;
-                foreach (var contact in allContacts)
+                var allContacts = await eContactService.GetContacts();
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    Contacts.Add(contact);
-                }
+                    Contacts.Clear();
+                    foreach (var contact in allContacts)
+                    {
+                        Contacts.Add(contact);
+                    }
+                });
             }
             catch (Exception ex)
             {
@@ -67,11 +68,7 @@ namespace eHealth.ViewModels
         public EmergencyContacts SelectedContact
         {
             get => _selectedContact;
-            set
-            {
-                SetProperty(ref _selectedContact, value);
-                OnContactSelected(value);
-            }
+            set => SetProperty(ref _selectedContact, value);
         }
 
         private async void OnAddContact(object obj)
@@ -79,12 +76,31 @@ namespace eHealth.ViewModels
             await Shell.Current.GoToAsync(nameof(AddEmergencyContactPage));
         }
 
-        async void OnContactSelected(EmergencyContacts contact)
+        private async void OnContactSelected(EmergencyContacts contact)
         {
             if (contact == null) return;
 
-            await Shell.Current.GoToAsync($"{nameof(EContactDetailPage)}?ContactId={contact.ContactId}");
+            SelectedContact = contact;
+            await Shell.Current.GoToAsync($"{nameof(EContactDetailPage)}?ContactId={SelectedContact.ContactId}");
         }
 
+        private async void OnDeleteContact(EmergencyContacts contact)
+        {
+            if (contact == null) return;
+
+            var confirm = await App.Current.MainPage.DisplayAlert("Confirm Delete", "Are you sure you want to delete this contact?", "Yes", "No");
+            if (!confirm) return;
+
+            try
+            {
+                await eContactService.RemoveContact(contact.ContactId);
+                Device.BeginInvokeOnMainThread(() => Contacts.Remove(contact));
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Failed to delete contact: {ex.Message}");
+                await App.Current.MainPage.DisplayAlert("Error", "Failed to delete contact. Please try again.", "OK");
+            }
+        }
     }
 }

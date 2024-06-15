@@ -9,6 +9,7 @@ using eHealth.Data;
 using eHealth.Service.IService;
 using eHealth.Service.Service;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace eHealth
 {
@@ -48,7 +49,7 @@ namespace eHealth
         {
             InitializeComponent();
             DependencyService.Register<SensorService>();
-            DependencyService.Register<IUserService, UserService>();
+            DependencyService.Register<UserService>();
             MainPage = new AppShell();
         }
 
@@ -57,6 +58,8 @@ namespace eHealth
             // Handle when your app starts
             await InitializeDatabaseAsync();
             StartAccelerometerService();
+            await SecureStorage.SetAsync("email", "ehealthuseralert@gmail.com");
+            await SecureStorage.SetAsync("password", "nvds nbze xzkz ytht");
         }
 
         protected override void OnSleep()

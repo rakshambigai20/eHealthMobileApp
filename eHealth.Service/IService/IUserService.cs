@@ -4,12 +4,11 @@ using System.Threading.Tasks;
 
 namespace eHealth.Service.IService
 {
-    public interface IUserService
+    public interface IUserService<T>
     {
         Task<List<User>> GetUsers();
-        Task<User> GetUser(int id);
-        Task AddUser(User user);
-        Task UpdateUser(User user);
-        Task RemoveUser(int id);
+        Task<User> GetUser();
+        Task AddUser(T user);
+        Task UpdateUser(T user);
     }
 }

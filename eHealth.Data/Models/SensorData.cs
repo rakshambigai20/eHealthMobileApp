@@ -16,13 +16,5 @@ namespace eHealth.Data.Models
         public double Longitude { get; set; }
     }
 
-    public class AggregatedSensorData
-    {
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
-        public double ValueX { get; set; }
-        public double ValueY { get; set; }
-        public double ValueZ { get; set; }
-        public string Hour { get; set; }
-    }
+    
 }

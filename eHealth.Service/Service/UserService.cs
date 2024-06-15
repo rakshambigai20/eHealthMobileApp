@@ -8,7 +8,7 @@ using System;
 
 namespace eHealth.Services
 {
-    public class UserService : IUserService
+    public class UserService : IUserService<User>
     {
         private readonly eHealthDatabase _database;
 
@@ -22,9 +22,9 @@ namespace eHealth.Services
             return _database.GetUsersAsync();
         }
 
-        public Task<User> GetUser(int id)
+        public Task<User> GetUser()
         {
-            return _database.GetUserAsync(id);
+            return _database.GetUserAsync();
         }
 
         public Task AddUser(User user)
@@ -37,13 +37,6 @@ namespace eHealth.Services
             return _database.SaveUserAsync(user); // Assuming SaveUserAsync handles both insert and update
         }
 
-        public async Task RemoveUser(int id)
-        {
-            var user = await _database.GetUserAsync(id);
-            if (user != null)
-            {
-                await _database.DeleteUserAsync(user);
-            }
-        }
+
     }
 }

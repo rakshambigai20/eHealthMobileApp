@@ -3,24 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\balar\\source\\repos\\eHealth\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{24614BE5-159B-4AB4-A0E0-79FFF79B684C}|eHealth\\eHealth.Android\\eHealth.Android.csproj|c:\\users\\balar\\source\\repos\\ehealth\\ehealth\\ehealth.android\\service\\accelerometerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{24614BE5-159B-4AB4-A0E0-79FFF79B684C}|eHealth\\eHealth.Android\\eHealth.Android.csproj|solutionrelative:ehealth\\ehealth.android\\service\\accelerometerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8238B205-BC67-4908-86BE-6D05F601E5EE}|eHealth.Service\\eHealth.Service.csproj|c:\\users\\balar\\source\\repos\\ehealth\\ehealth.service\\service\\econtactservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8238B205-BC67-4908-86BE-6D05F601E5EE}|eHealth.Service\\eHealth.Service.csproj|solutionrelative:ehealth.service\\service\\econtactservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1DD7D754-E0FC-4A99-9396-C54016D40F7F}|eHealth.Data\\eHealth.Data.csproj|c:\\users\\balar\\source\\repos\\ehealth\\ehealth.data\\models\\accelerometeranalysis.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1DD7D754-E0FC-4A99-9396-C54016D40F7F}|eHealth.Data\\eHealth.Data.csproj|solutionrelative:ehealth.data\\models\\accelerometeranalysis.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1DD7D754-E0FC-4A99-9396-C54016D40F7F}|eHealth.Data\\eHealth.Data.csproj|c:\\users\\balar\\source\\repos\\ehealth\\ehealth.data\\data\\ehealthdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1DD7D754-E0FC-4A99-9396-C54016D40F7F}|eHealth.Data\\eHealth.Data.csproj|solutionrelative:ehealth.data\\data\\ehealthdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{24614BE5-159B-4AB4-A0E0-79FFF79B684C}|eHealth\\eHealth.Android\\eHealth.Android.csproj|c:\\users\\balar\\source\\repos\\ehealth\\ehealth\\ehealth.android\\properties\\androidmanifest.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{24614BE5-159B-4AB4-A0E0-79FFF79B684C}|eHealth\\eHealth.Android\\eHealth.Android.csproj|solutionrelative:ehealth\\ehealth.android\\properties\\androidmanifest.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+      "AbsoluteMoniker": "D:0:0:{30B98230-DD8E-4323-9556-078414A1E329}|eHealth\\eHealth\\eHealth.csproj|c:\\users\\balar\\source\\repos\\ehealth\\ehealth\\ehealth\\viewmodels\\econtactdetailviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{30B98230-DD8E-4323-9556-078414A1E329}|eHealth\\eHealth\\eHealth.csproj|solutionrelative:ehealth\\ehealth\\viewmodels\\econtactdetailviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{30B98230-DD8E-4323-9556-078414A1E329}|eHealth\\eHealth\\eHealth.csproj|c:\\users\\balar\\source\\repos\\ehealth\\ehealth\\ehealth\\app.xaml||{2974C621-7033-421A-B08A-11D27B021D1B}",
-      "RelativeMoniker": "D:0:0:{30B98230-DD8E-4323-9556-078414A1E329}|eHealth\\eHealth\\eHealth.csproj|solutionrelative:ehealth\\ehealth\\app.xaml||{2974C621-7033-421A-B08A-11D27B021D1B}"
+      "AbsoluteMoniker": "D:0:0:{30B98230-DD8E-4323-9556-078414A1E329}|eHealth\\eHealth\\eHealth.csproj|c:\\users\\balar\\source\\repos\\ehealth\\ehealth\\ehealth\\views\\econtactpage.xaml||{2974C621-7033-421A-B08A-11D27B021D1B}",
+      "RelativeMoniker": "D:0:0:{30B98230-DD8E-4323-9556-078414A1E329}|eHealth\\eHealth\\eHealth.csproj|solutionrelative:ehealth\\ehealth\\views\\econtactpage.xaml||{2974C621-7033-421A-B08A-11D27B021D1B}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1DD7D754-E0FC-4A99-9396-C54016D40F7F}|eHealth.Data\\eHealth.Data.csproj|c:\\users\\balar\\source\\repos\\ehealth\\ehealth.data\\models\\sensordata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1DD7D754-E0FC-4A99-9396-C54016D40F7F}|eHealth.Data\\eHealth.Data.csproj|solutionrelative:ehealth.data\\models\\sensordata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1DD7D754-E0FC-4A99-9396-C54016D40F7F}|eHealth.Data\\eHealth.Data.csproj|c:\\users\\balar\\source\\repos\\ehealth\\ehealth.data\\models\\emergencycontacts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1DD7D754-E0FC-4A99-9396-C54016D40F7F}|eHealth.Data\\eHealth.Data.csproj|solutionrelative:ehealth.data\\models\\emergencycontacts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{30B98230-DD8E-4323-9556-078414A1E329}|eHealth\\eHealth\\eHealth.csproj|c:\\users\\balar\\source\\repos\\ehealth\\ehealth\\ehealth\\viewmodels\\econtactviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{30B98230-DD8E-4323-9556-078414A1E329}|eHealth\\eHealth\\eHealth.csproj|solutionrelative:ehealth\\ehealth\\viewmodels\\econtactviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,115 +34,84 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 14,
+          "SelectedChildIndex": 1,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:22:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:23:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:19:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:15:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:16:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:17:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:18:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e3fb24c2-2e84-3146-a5f8-bc25bbc68f8a}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:1175260563:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:148649479:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:134781324:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "AccelerometerAnalysis.cs",
-              "DocumentMoniker": "C:\\Users\\balar\\source\\repos\\eHealth\\eHealth.Data\\Models\\AccelerometerAnalysis.cs",
-              "RelativeDocumentMoniker": "eHealth.Data\\Models\\AccelerometerAnalysis.cs",
-              "ToolTip": "C:\\Users\\balar\\source\\repos\\eHealth\\eHealth.Data\\Models\\AccelerometerAnalysis.cs",
-              "RelativeToolTip": "eHealth.Data\\Models\\AccelerometerAnalysis.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAAAAAA",
+              "Title": "eHealthDatabase.cs",
+              "DocumentMoniker": "C:\\Users\\balar\\source\\repos\\eHealth\\eHealth.Data\\Data\\eHealthDatabase.cs",
+              "RelativeDocumentMoniker": "eHealth.Data\\Data\\eHealthDatabase.cs",
+              "ToolTip": "C:\\Users\\balar\\source\\repos\\eHealth\\eHealth.Data\\Data\\eHealthDatabase.cs",
+              "RelativeToolTip": "eHealth.Data\\Data\\eHealthDatabase.cs",
+              "ViewState": "AQIAAG8AAAAAAAAAAAAAAIUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-10T21:18:44.385Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "AndroidManifest.xml",
-              "DocumentMoniker": "C:\\Users\\balar\\source\\repos\\eHealth\\eHealth\\eHealth.Android\\Properties\\AndroidManifest.xml",
-              "RelativeDocumentMoniker": "eHealth\\eHealth.Android\\Properties\\AndroidManifest.xml",
-              "ToolTip": "C:\\Users\\balar\\source\\repos\\eHealth\\eHealth\\eHealth.Android\\Properties\\AndroidManifest.xml",
-              "RelativeToolTip": "eHealth\\eHealth.Android\\Properties\\AndroidManifest.xml",
-              "ViewState": "AQIAAAAAAAAAAAAAAADwvxQAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
-              "WhenOpened": "2024-06-10T19:14:43.395Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "App.xaml",
-              "DocumentMoniker": "C:\\Users\\balar\\source\\repos\\eHealth\\eHealth\\eHealth\\App.xaml",
-              "RelativeDocumentMoniker": "eHealth\\eHealth\\App.xaml",
-              "ToolTip": "C:\\Users\\balar\\source\\repos\\eHealth\\eHealth\\eHealth\\App.xaml",
-              "RelativeToolTip": "eHealth\\eHealth\\App.xaml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-06-10T19:14:10.167Z",
+              "WhenOpened": "2024-06-15T23:11:18.764Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AccelerometerService.cs",
-              "DocumentMoniker": "C:\\Users\\balar\\source\\repos\\eHealth\\eHealth\\eHealth.Android\\Service\\AccelerometerService.cs",
-              "RelativeDocumentMoniker": "eHealth\\eHealth.Android\\Service\\AccelerometerService.cs",
-              "ToolTip": "C:\\Users\\balar\\source\\repos\\eHealth\\eHealth\\eHealth.Android\\Service\\AccelerometerService.cs",
-              "RelativeToolTip": "eHealth\\eHealth.Android\\Service\\AccelerometerService.cs",
-              "ViewState": "AQIAAAUBAAAAAAAAAAAIwBgBAAAAAAAA",
+              "Title": "EContactService.cs",
+              "DocumentMoniker": "C:\\Users\\balar\\source\\repos\\eHealth\\eHealth.Service\\Service\\EContactService.cs",
+              "RelativeDocumentMoniker": "eHealth.Service\\Service\\EContactService.cs",
+              "ToolTip": "C:\\Users\\balar\\source\\repos\\eHealth\\eHealth.Service\\Service\\EContactService.cs",
+              "RelativeToolTip": "eHealth.Service\\Service\\EContactService.cs",
+              "ViewState": "AQIAAFQAAAAAAAAAAAAIwFkAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-10T19:13:46.06Z",
+              "WhenOpened": "2024-06-15T22:48:11.599Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "EContactDetailViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\balar\\source\\repos\\eHealth\\eHealth\\eHealth\\ViewModels\\EContactDetailViewModel.cs",
+              "RelativeDocumentMoniker": "eHealth\\eHealth\\ViewModels\\EContactDetailViewModel.cs",
+              "ToolTip": "C:\\Users\\balar\\source\\repos\\eHealth\\eHealth\\eHealth\\ViewModels\\EContactDetailViewModel.cs",
+              "RelativeToolTip": "eHealth\\eHealth\\ViewModels\\EContactDetailViewModel.cs",
+              "ViewState": "AQIAAGsAAAAAAAAAAAAmwHwAAAA2AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-15T22:43:21.99Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "SensorData.cs",
-              "DocumentMoniker": "C:\\Users\\balar\\source\\repos\\eHealth\\eHealth.Data\\Models\\SensorData.cs",
-              "RelativeDocumentMoniker": "eHealth.Data\\Models\\SensorData.cs",
-              "ToolTip": "C:\\Users\\balar\\source\\repos\\eHealth\\eHealth.Data\\Models\\SensorData.cs",
-              "RelativeToolTip": "eHealth.Data\\Models\\SensorData.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAiwBkAAAAoAAAA",
+              "Title": "EmergencyContacts.cs",
+              "DocumentMoniker": "C:\\Users\\balar\\source\\repos\\eHealth\\eHealth.Data\\Models\\EmergencyContacts.cs",
+              "RelativeDocumentMoniker": "eHealth.Data\\Models\\EmergencyContacts.cs",
+              "ToolTip": "C:\\Users\\balar\\source\\repos\\eHealth\\eHealth.Data\\Models\\EmergencyContacts.cs",
+              "RelativeToolTip": "eHealth.Data\\Models\\EmergencyContacts.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-10T15:55:34.353Z",
+              "WhenOpened": "2024-06-15T22:36:48.634Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "EContactViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\balar\\source\\repos\\eHealth\\eHealth\\eHealth\\ViewModels\\EContactViewModel.cs",
+              "RelativeDocumentMoniker": "eHealth\\eHealth\\ViewModels\\EContactViewModel.cs",
+              "ToolTip": "C:\\Users\\balar\\source\\repos\\eHealth\\eHealth\\eHealth\\ViewModels\\EContactViewModel.cs",
+              "RelativeToolTip": "eHealth\\eHealth\\ViewModels\\EContactViewModel.cs",
+              "ViewState": "AQIAAEsAAAAAAAAAAADwv2gAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-15T22:00:15.275Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "EContactPage.xaml",
+              "DocumentMoniker": "C:\\Users\\balar\\source\\repos\\eHealth\\eHealth\\eHealth\\Views\\EContactPage.xaml",
+              "RelativeDocumentMoniker": "eHealth\\eHealth\\Views\\EContactPage.xaml",
+              "ToolTip": "C:\\Users\\balar\\source\\repos\\eHealth\\eHealth\\eHealth\\Views\\EContactPage.xaml",
+              "RelativeToolTip": "eHealth\\eHealth\\Views\\EContactPage.xaml",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAwwCIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-06-15T21:29:38.143Z",
               "EditorCaption": ""
             }
           ]

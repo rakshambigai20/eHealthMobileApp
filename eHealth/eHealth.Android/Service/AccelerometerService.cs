@@ -161,7 +161,7 @@ namespace eHealth.Droid.Services
                     Longitude = location?.Longitude ?? 0
                 };
 
-                //Task.Run(async () => await _database.SaveSensorDataAsync(sensorData));
+                Task.Run(async () => await _database.SaveSensorDataAsync(sensorData));
 
                 // Call the AnalyzeAccelerometerData method
                 AnalyzeAccelerometerData(dataToAnalyze, _intervalStartTime, intervalEndTime);

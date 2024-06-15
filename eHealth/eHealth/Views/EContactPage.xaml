@@ -12,7 +12,6 @@
         <ToolbarItem Text="Add" Command="{Binding AddContactCommand}" />
     </ContentPage.ToolbarItems>
 
-    <!-- RefreshView for pull-to-refresh functionality -->
     <RefreshView Command="{Binding LoadContactsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <CollectionView x:Name="EContactsListView"
                         ItemsSource="{Binding Contacts}"
@@ -41,9 +40,11 @@
                                 <Label Grid.Row="1" Grid.Column="0" Text="{Binding Relationship}" 
                                        FontSize="16" TextColor="#666" />
 
-                                <!-- Icon to indicate tap gesture -->
-                                <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Source="icon_next.png" 
-                                       VerticalOptions="Center" HorizontalOptions="End" />
+                                <!-- Delete Button -->
+                                <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Text="Delete"
+                                        BackgroundColor="LightCoral" TextColor="White"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:EContactViewModel}}, Path=DeleteContactCommand}"
+                                        CommandParameter="{Binding .}" />
                             </Grid>
 
                             <!-- Tap Gesture Recognizer -->

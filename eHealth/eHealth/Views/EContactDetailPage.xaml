@@ -1,27 +1,31 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-       mc:Ignorable="d"
-       x:Class="eHealth.Views.EContactDetailPage"
-       Title="Contact Details">
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="eHealth.Views.EContactDetailPage"
+             Title="Contact Details">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{Binding ToolbarButtonText}" Command="{Binding ToolbarButtonCommand}" />
+    </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Padding="20">
                 <Label Text="Name" FontAttributes="Bold"/>
-                <Label Text="{Binding Name}"/>
+                <Entry Text="{Binding Name}" IsEnabled="{Binding IsEditing}" />
 
                 <Label Text="Relationship" FontAttributes="Bold"/>
-                <Label Text="{Binding Relationship}"/>
+                <Entry Text="{Binding Relationship}" IsEnabled="{Binding IsEditing}" />
 
                 <Label Text="Email" FontAttributes="Bold"/>
-                <Label Text="{Binding Email}"/>
+                <Entry Text="{Binding Email}" IsEnabled="{Binding IsEditing}" />
 
                 <Label Text="Phone Number" FontAttributes="Bold"/>
-                <Label Text="{Binding PhoneNumber}"/>
+                <Entry Text="{Binding PhoneNumber}" IsEnabled="{Binding IsEditing}" />
 
-                <!-- Add the Emergency Button for testing-->
                 <Button Text="Handle Emergency" Command="{Binding HandleEmergencyCommand}" />
             </StackLayout>
         </ScrollView>

@@ -14,6 +14,8 @@ namespace eHealth
             InitializeComponent();
             Routing.RegisterRoute(nameof(EContactDetailPage), typeof(EContactDetailPage));
             Routing.RegisterRoute(nameof(AddEmergencyContactPage), typeof(AddEmergencyContactPage));
+            Routing.RegisterRoute(nameof(ModifyEContactDetailPage), typeof(ModifyEContactDetailPage));
+            Routing.RegisterRoute(nameof(AddUserDetailsPage), typeof(AddUserDetailsPage));
         }
 
     }

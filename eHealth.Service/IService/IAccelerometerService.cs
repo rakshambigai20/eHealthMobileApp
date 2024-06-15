@@ -6,6 +6,6 @@ namespace eHealth.Service.IService
     {
         void StartService();
         void StopService();
-        void SaveSensorData(SensorData data); // Add this method to save data
+        void SaveSensorData(SensorData data); // method to save data
     }
 }

@@ -1,46 +1,63 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using eHealth.Data.Models;
 using eHealth.Service.IService;
+using eHealth.Services;
+using eHealth.Views;
 using Xamarin.Forms;
 
 namespace eHealth.ViewModels
 {
     public class UserViewModel : BaseViewModel
     {
-        private readonly IUserService _userService;
+        private readonly IUserService<User> _userService;
+        private User _user;
+        private string _toolbarButtonText;
 
-        public ObservableCollection<User> Users { get; }
-        public Command LoadUsersCommand { get; }
-        public Command<User> AddUserCommand { get; }
-        public Command<User> DeleteUserCommand { get; }
+        public User User
+        {
+            get => _user;
+            set
+            {
+                SetProperty(ref _user, value);
+                OnPropertyChanged(nameof(IsUserEmpty));
+                ToolbarButtonText = IsUserEmpty ? "Add" : "Edit";
+            }
+        }
+
+        public string ToolbarButtonText
+        {
+            get => _toolbarButtonText;
+            set => SetProperty(ref _toolbarButtonText, value);
+        }
+
+        public bool IsUserEmpty => User == null;
+
+        public Command LoadUserCommand { get; }
+        public Command AddOrEditUserCommand { get; }
 
         public UserViewModel()
         {
-            _userService = DependencyService.Get<IUserService>();
-            Users = new ObservableCollection<User>();
-            LoadUsersCommand = new Command(async () => await ExecuteLoadUsersCommand());
-            AddUserCommand = new Command<User>(async (user) => await AddUser(user));
-            DeleteUserCommand = new Command<User>(async (user) => await DeleteUser(user));
+            _userService = new UserService();
+            Title = "User Details";
+            LoadUserCommand = new Command(async () => await ExecuteLoadUserCommand());
+            AddOrEditUserCommand = new Command(OnAddOrEditUser);
+            ToolbarButtonText = "Add";
         }
 
-        async Task ExecuteLoadUsersCommand()
+        async Task ExecuteLoadUserCommand()
         {
             IsBusy = true;
 
             try
             {
-                Users.Clear();
-                var users = await _userService.GetUsers();
-                foreach (var user in users)
-                {
-                    Users.Add(user);
-                }
+                User = await _userService.GetUser();
+                Debug.WriteLine("User loaded: " + User?.Name);
             }
             catch (Exception ex)
             {
-                // Handle exceptions
+                Debug.WriteLine("Failed to Load User: " + ex);
             }
             finally
             {
@@ -48,20 +65,10 @@ namespace eHealth.ViewModels
             }
         }
 
-        async Task AddUser(User user)
+        private async void OnAddOrEditUser()
         {
-
-            await _userService.AddUser(user);
-            Users.Add(user);
-        }
-
-        async Task DeleteUser(User user)
-        {
-            if (user == null || user.UserId == 0)
-                return;
-
-            await _userService.RemoveUser(user.UserId);
-            Users.Remove(user);
+            // Navigate to AddUserDetailsPage
+            await Shell.Current.GoToAsync(nameof(AddUserDetailsPage));
         }
     }
 }
