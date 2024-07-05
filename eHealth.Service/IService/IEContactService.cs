@@ -14,5 +14,6 @@ namespace eHealth.Service.IService
         Task UpdateContact(T contact);
         Task RemoveContact(int id);
         Task HandleEmergency(string senderEmail, string senderPassword);
+        Task MakePhoneCall(string phoneNumber);
     }
 }

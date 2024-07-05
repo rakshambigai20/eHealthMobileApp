@@ -103,7 +103,11 @@ namespace eHealth.Service.Service
         {
             return await _database.GetAllAccelerometerAnalysisAsync();
         }
+        public async Task<List<SensorData>> GetSensorDataAsync()
+        {
+            return await _database.GetAllSensorDataAsync();
+        }
 
-        
+
     }
 }

@@ -78,6 +78,16 @@ namespace eHealth.Data
             return _database.InsertAsync(sensorData);
         }
 
+        public async Task DeleteOldSensorDataAsync()
+        {
+            var thresholdDate = DateTime.Now.AddDays(-15);
+            var oldData = await _database.Table<SensorData>().Where(data => data.DateTime < thresholdDate).ToListAsync();
+            foreach (var data in oldData)
+            {
+                await _database.DeleteAsync(data);
+            }
+        }
+
         public Task<List<SensorData>> GetAllSensorDataAsync()
         {
             return _database.Table<SensorData>().ToListAsync();
@@ -92,8 +102,6 @@ namespace eHealth.Data
         {
             return _database.DeleteAllAsync<SensorData>();
         }
-
-        
 
         // AccelerometerAnalysis CRUD operations
         public Task<int> SaveAccelerometerAnalysisAsync(AccelerometerAnalysis analysis)
@@ -125,6 +133,7 @@ namespace eHealth.Data
                             .Where(i => i.ContactId == id)
                             .FirstOrDefaultAsync();
         }
+
         public Task<EmergencyContacts> GetEmergencyContactbyEmailAsync(string id)
         {
             return _database.Table<EmergencyContacts>()

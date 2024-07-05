@@ -26,7 +26,8 @@
   </queries>
   <permission android:name="com.companyname.ehealth.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" android:protectionLevel="signature" />
   <uses-permission android:name="com.companyname.ehealth.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-  <application android:name="android.app.Application" android:allowBackup="true" android:appComponentFactory="androidx.core.app.CoreComponentFactory" android:extractNativeLibs="true" android:icon="@mipmap/icon" android:label="eHealth.Android" android:theme="@style/MainTheme">
+  <application android:name="android.app.Application" android:allowBackup="true" android:appComponentFactory="androidx.core.app.CoreComponentFactory" android:debuggable="true" android:extractNativeLibs="true" android:icon="@mipmap/icon" android:label="eHealth.Android" android:theme="@style/MainTheme">
+    <!-- Add this line -->
     <service android:name="com.companyname.ehealth.Services.AccelerometerService" android:enabled="true" android:exported="false" android:foregroundServiceType="location" />
     <receiver android:name="com.companyname.ehealth.Services.RestartServiceReceiver" android:enabled="true" android:exported="false" />
     <receiver android:name="crc643f46942d9dd1fff9.PowerSaveModeBroadcastReceiver" android:enabled="true" android:exported="false" />

@@ -125,7 +125,7 @@ namespace eHealth.Service.Service
             }
         }
 
-        public void MakePhoneCall(string phoneNumber)
+        public async Task MakePhoneCall(string phoneNumber)
         {
             var phoneDialer = CrossMessaging.Current.PhoneDialer;
             if (phoneDialer.CanMakePhoneCall)
@@ -136,6 +136,8 @@ namespace eHealth.Service.Service
 
         public async Task HandleEmergency(string senderEmail, string senderPassword)
         {
+            System.Diagnostics.Debug.WriteLine("function called");
+
             var allContacts = await GetContacts();
             foreach (var contact in allContacts)
             {
@@ -144,6 +146,8 @@ namespace eHealth.Service.Service
                     // MakePhoneCall(contact.PhoneNumber);
                     SendSms(contact.PhoneNumber);
                     SendEmail(contact.Email, senderEmail, senderPassword);
+                    System.Diagnostics.Debug.WriteLine("email sent");
+
                 }
                 else
                 {

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using eHealth.ViewModels;
 
 namespace eHealth.Views
 {
@@ -15,7 +10,7 @@ namespace eHealth.Views
         public SensorPage()
         {
             InitializeComponent();
-            BindingContext = new eHealth.ViewModels.SensorViewModel();
+            BindingContext = new SensorViewModel();
         }
     }
 }

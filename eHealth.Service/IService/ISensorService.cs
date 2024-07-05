@@ -7,6 +7,8 @@ namespace eHealth.Service.IService
     public interface ISensorService
     {
         Task<List<AccelerometerAnalysis>> GetAccelerometerDataAsync();
+        Task<List<SensorData>> GetSensorDataAsync();
+
         void StartAccelerometer();
         void StopAccelerometer();
     }

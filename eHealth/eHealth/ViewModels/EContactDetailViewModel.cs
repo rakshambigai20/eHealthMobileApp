@@ -26,6 +26,7 @@ namespace eHealth.ViewModels
 
         public EContactDetailViewModel()
         {
+            MakeCallCommand = new Command(async () => await MakeCall());
             HandleEmergencyCommand = new Command(async () => await HandleEmergency());
             EditCommand = new Command(OnEdit);
             SaveCommand = new Command(async () => await OnSave());
@@ -91,6 +92,8 @@ namespace eHealth.ViewModels
         }
 
         public Command HandleEmergencyCommand { get; }
+
+        public Command MakeCallCommand { get; }
         public Command EditCommand { get; }
         public Command SaveCommand { get; }
 
@@ -124,6 +127,15 @@ namespace eHealth.ViewModels
             {
                 Debug.WriteLine("Email or password not set in secure storage.");
             }
+        }
+
+        private async Task MakeCall()
+        {
+            var contact = await econtactService.GetContact(contactId);
+            PhoneNumber = contact.PhoneNumber;
+            await econtactService.MakePhoneCall(PhoneNumber);
+
+
         }
 
         private void OnEdit()

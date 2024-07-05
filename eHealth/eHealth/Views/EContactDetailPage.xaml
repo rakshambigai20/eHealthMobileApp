@@ -26,7 +26,8 @@
                 <Label Text="Phone Number" FontAttributes="Bold"/>
                 <Entry Text="{Binding PhoneNumber}" IsEnabled="{Binding IsEditing}" />
 
-                <Button Text="Handle Emergency" Command="{Binding HandleEmergencyCommand}" />
+             <!--- <Button Text="Handle Emergency" Command="{Binding HandleEmergencyCommand}" /> -->
+              <Button Text="Call" Command="{Binding MakeCallCommand}" /> 
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

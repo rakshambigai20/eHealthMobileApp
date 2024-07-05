@@ -32,7 +32,6 @@
     <TabBar>
         <ShellContent Title="Users" Icon="icon_about.png" ContentTemplate="{DataTemplate local:UserPage}" />
         <ShellContent Title="Contacts" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:EContactPage}" />
-        <ShellContent Title="Health" Icon="icon_accelerometer.jpg" ContentTemplate="{DataTemplate local:SensorPage}" />
     </TabBar>
 
     <!--

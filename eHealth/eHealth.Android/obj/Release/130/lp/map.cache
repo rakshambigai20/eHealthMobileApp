@@ -1,7 +1,12 @@
 FormsViewGroup.dll
+Microcharts.Droid.dll
+Microsoft.ML.OnnxRuntime.dll
 OxyPlot.Xamarin.Android.dll
 OxyPlot.Xamarin.Forms.Platform.Android.dll
 Plugin.Messaging.dll
+SkiaSharp.dll
+SkiaSharp.Views.Android.dll
+SkiaSharp.Views.Forms.dll
 SQLitePCLRaw.batteries_v2.dll
 SQLitePCLRaw.lib.e_sqlite3.android.dll
 Xamarin.AndroidX.Activity.dll
@@ -135,3 +140,4 @@ androidx.sqlite.sqlite-framework.aar
 androidx.room.room-runtime.aar
 androidx.lifecycle.lifecycle-service.aar
 androidx.work.work-runtime.aar
+onnxruntime.aar

@@ -2,14 +2,17 @@
 using Android.Content;
 using Android.OS;
 using Xamarin.Essentials;
-using eHealth.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
+using eHealth.Data.Models;
 using eHealth.Data;
+using eHealth.Service.FuzzyLogic;
+using eHealth.Service.IService;
+using eHealth.Service.Service;
 using static Android.OS.PowerManager;
 
 namespace eHealth.Droid.Services
@@ -20,17 +23,34 @@ namespace eHealth.Droid.Services
         private readonly eHealthDatabase _database;
         private WakeLock wakeLock;
         private readonly List<AccelerometerData> _accelerometerDataList = new List<AccelerometerData>();
+        private readonly List<AccelerometerData> _greatestMagnitudeDataList = new List<AccelerometerData>();
         private readonly Timer _dataCollectionTimer = new Timer(1000); // 1 second interval
-        private DateTime _intervalStartTime;
-        private string _previousState;
-        private DateTime _previousStateStartTime;
+        private int _secondsCount = 0;
+        private int _abnormalityCount = 0;
+        private FuzzyLogic _fuzzyLogic;
+        private string _senderEmail;
+        private string _senderPassword;
+        private readonly IEContactService<EmergencyContacts> _econtactService;
 
         public AccelerometerService()
         {
             _database = new eHealthDatabase(Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "eHealth.db3"));
-            _intervalStartTime = DateTime.Now;
-            _previousState = "Idle"; // Assume starting state is Idle
-            _previousStateStartTime = _intervalStartTime;
+            _econtactService = new EContactService();
+            InitializeFuzzyLogic();
+        }
+
+        private void InitializeFuzzyLogic()
+        {
+            try
+            {
+                var historicData = new List<SensorData>(); // Retrieve historical data if needed
+                _fuzzyLogic = new FuzzyLogic(historicData);
+                System.Diagnostics.Debug.WriteLine("FuzzyLogic initialized.");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error initializing FuzzyLogic: {ex.Message}");
+            }
         }
 
         public override IBinder OnBind(Intent intent)
@@ -40,7 +60,7 @@ namespace eHealth.Droid.Services
 
         public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
         {
-            StartForegroundService(); // Call this immediately
+            StartForegroundService();
             RequestIgnoreBatteryOptimizations();
             AcquireWakeLock();
             Accelerometer.ReadingChanged += Accelerometer_ReadingChanged;
@@ -64,7 +84,7 @@ namespace eHealth.Droid.Services
                 {
                     Intent intent = new Intent(Android.Provider.Settings.ActionRequestIgnoreBatteryOptimizations);
                     intent.SetData(Android.Net.Uri.Parse("package:" + PackageName));
-                    intent.AddFlags(ActivityFlags.NewTask); // Ensure the intent is started from the service
+                    intent.AddFlags(ActivityFlags.NewTask);
                     StartActivity(intent);
                 }
             }
@@ -136,38 +156,72 @@ namespace eHealth.Droid.Services
 
         private async void OnDataCollectionTimerElapsed(object sender, ElapsedEventArgs e)
         {
-            List<AccelerometerData> dataToAnalyze;
-            DateTime intervalEndTime = DateTime.Now;
-
+            AccelerometerData greatestMagnitudeData;
             lock (_accelerometerDataList)
             {
-                dataToAnalyze = new List<AccelerometerData>(_accelerometerDataList);
+                if (_accelerometerDataList.Count == 0) return;
+                greatestMagnitudeData = _accelerometerDataList.OrderByDescending(d => d.Magnitude).First();
                 _accelerometerDataList.Clear();
             }
 
-            if (dataToAnalyze.Count > 0)
+            lock (_greatestMagnitudeDataList)
             {
-                double averageMagnitude = dataToAnalyze.Average(d => d.Magnitude);
+                _greatestMagnitudeDataList.Add(greatestMagnitudeData);
+            }
+
+            _secondsCount++;
+            System.Diagnostics.Debug.WriteLine($"Magnitude : {greatestMagnitudeData.Magnitude}");
+
+            if (greatestMagnitudeData.Magnitude > 10)
+            {
+                await HandleEmergency();
+
+            }
+
+            if (greatestMagnitudeData.Magnitude < 1.2)
+            {
+
+                double abnormality = _fuzzyLogic.InferAbnormality(greatestMagnitudeData.Magnitude, greatestMagnitudeData.Timestamp);
+                if (abnormality < 0.5)
+                {
+                    _abnormalityCount++;
+                    System.Diagnostics.Debug.WriteLine($"abnormality count : {_abnormalityCount}");
+
+                }
+            }
+            else
+            {
+                _abnormalityCount = 0;
+            }
+            System.Diagnostics.Debug.WriteLine($"Seconds count : {_secondsCount}");
+
+            if (_secondsCount >= 60)
+            {
+                var greatestOverallData = _greatestMagnitudeDataList.OrderByDescending(d => d.Magnitude).First();
                 var location = await GetLocationAsync();
 
-                var sensorData = new SensorData
+                var dbSensorData = new SensorData
                 {
-                    ValueX = dataToAnalyze.Average(d => d.X),
-                    ValueY = dataToAnalyze.Average(d => d.Y),
-                    ValueZ = dataToAnalyze.Average(d => d.Z),
-                    Magnitude = averageMagnitude,
-                    DateTime = intervalEndTime,
+                    ValueX = greatestOverallData.X,
+                    ValueY = greatestOverallData.Y,
+                    ValueZ = greatestOverallData.Z,
+                    Magnitude = greatestOverallData.Magnitude,
+                    DateTime = DateTime.Now,
                     Latitude = location?.Latitude ?? 0,
                     Longitude = location?.Longitude ?? 0
                 };
 
-                Task.Run(async () => await _database.SaveSensorDataAsync(sensorData));
-
-                // Call the AnalyzeAccelerometerData method
-                AnalyzeAccelerometerData(dataToAnalyze, _intervalStartTime, intervalEndTime);
+                await _database.SaveSensorDataAsync(dbSensorData);
+                System.Diagnostics.Debug.WriteLine($"values saved : {dbSensorData}");
+                _secondsCount = 0;
+                await _database.DeleteOldSensorDataAsync(); // Call to delete old data
             }
+            if (_abnormalityCount >= 14400)
+            {
+                await HandleEmergency();
+                _abnormalityCount = 0; // Reset abnormality count after handling emergency
 
-            _intervalStartTime = intervalEndTime;
+            }
         }
 
         private async Task<Location> GetLocationAsync()
@@ -197,49 +251,26 @@ namespace eHealth.Droid.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error getting location: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Error getting location: {ex.Message}");
             }
             return null;
         }
 
-        private void AnalyzeAccelerometerData(List<AccelerometerData> data, DateTime startTime, DateTime endTime)
+        private async Task HandleEmergency()
         {
-            double threshold = 1.2; // Example threshold value for movement
-            bool isInMotion = data.Any(d => d.Magnitude > threshold);
+            _senderEmail = await SecureStorage.GetAsync("email");
+            _senderPassword = await SecureStorage.GetAsync("password");
 
-            string currentState = isInMotion ? "In Motion" : "Idle";
-            System.Diagnostics.Debug.WriteLine($"Device state: {currentState}");
-
-            if (currentState != _previousState)
+            if (string.IsNullOrEmpty(_senderEmail) || string.IsNullOrEmpty(_senderPassword))
             {
-                var analysisData = new eHealth.Data.Models.AccelerometerAnalysis
-                {
-                    StartTime = _previousStateStartTime,
-                    EndTime = startTime,
-                    State = _previousState,
-                };
-
-                // Save analysis data to the database
-                Task.Run(async () => await SaveAccelerometerAnalysisAsync(analysisData));
-                System.Diagnostics.Debug.WriteLine($"Analysis data saved: StartTime={analysisData.StartTime}, EndTime={analysisData.EndTime}, State={analysisData.State}");
-
-                // Update previous state
-                _previousState = currentState;
-                _previousStateStartTime = startTime;
+                System.Diagnostics.Debug.WriteLine("Email or password not found in secure storage.");
+                throw new InvalidOperationException("Email or password not found in secure storage.");
             }
-        }
 
-        private async Task SaveAccelerometerAnalysisAsync(eHealth.Data.Models.AccelerometerAnalysis analysis)
-        {
-            try
-            {
-                await _database.SaveAccelerometerAnalysisAsync(analysis);
-                System.Diagnostics.Debug.WriteLine("Analysis data saved successfully.");
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error saving analysis data: {ex.Message}");
-            }
+            System.Diagnostics.Debug.WriteLine($"Handling emergency with email: {_senderEmail}");
+            System.Diagnostics.Debug.WriteLine($"Handling emergency with Password: {_senderPassword}");
+            await _econtactService.HandleEmergency(_senderEmail, _senderPassword);
+            System.Diagnostics.Debug.WriteLine("Emergency handled.");
         }
 
         public override void OnDestroy()

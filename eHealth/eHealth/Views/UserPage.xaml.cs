@@ -1,33 +1,42 @@
-﻿using eHealth.Models;
-using eHealth.ViewModels;
-using eHealth.Views;
+﻿using eHealth.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Timers;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace eHealth.Views
 {
     public partial class UserPage : ContentPage
     {
-        UserViewModel _viewModel;
+        private Timer _refreshTimer;
 
         public UserPage()
         {
             InitializeComponent();
+            BindingContext = new UserViewModel();
 
-            BindingContext = _viewModel = new UserViewModel();
+            _refreshTimer = new Timer(30000);
+            _refreshTimer.Elapsed += OnRefreshTimerElapsed;
         }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            _viewModel.LoadUserCommand.Execute(null);
+            _refreshTimer.Start();
+            ((UserViewModel)BindingContext).LoadSensorDataCommand.Execute(null);
         }
 
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            _refreshTimer.Stop();
+        }
 
+        private void OnRefreshTimerElapsed(object sender, ElapsedEventArgs e)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                ((UserViewModel)BindingContext).LoadSensorDataCommand.Execute(null);
+            });
+        }
     }
 }
