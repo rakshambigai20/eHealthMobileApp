@@ -37,6 +37,7 @@
                                IsVisible="{Binding IsUserEmpty}" 
                                HorizontalOptions="Center" 
                                VerticalOptions="CenterAndExpand" />
+                        
 
                         <!--Daily Graph-->
                         <Frame Margin="10" Padding="0" BorderColor="LightGray" CornerRadius="10" HasShadow="True">

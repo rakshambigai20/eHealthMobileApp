@@ -13,14 +13,10 @@ namespace eHealth.Service.FuzzyLogic
         public FuzzyLogic(List<SensorData> historicData)
         {
             _historicData = historicData;
-           // Debug.WriteLine("FuzzyLogic initialized with historic data.");
         }
-
         public double FuzzifyActivityLevel(double magnitude)
         {
-            //Debug.WriteLine($"FuzzifyActivityLevel called with magnitude: {magnitude}");
-
-            if (magnitude > 1)
+            if (magnitude > 1.2)
             {
                // Debug.WriteLine("Activity level is High.");
                 return 0.8; //High
@@ -31,58 +27,44 @@ namespace eHealth.Service.FuzzyLogic
                 return 0.2; //Low
             }
         }
-
         public double FuzzifyTimeOfDay(DateTime dateTime)
         {
             var hour = dateTime.Hour;
-           // Debug.WriteLine($"FuzzifyTimeOfDay called with dateTime: {dateTime}, hour: {hour}");
-
             if (hour < 6)
             {
-                //Debug.WriteLine("Time of day is Night.");
                 return 0.9; //Night
             }
             else if (hour < 18)
             {
-               // Debug.WriteLine("Time of day is Day.");
                 return 0.1; //Day
             }
             else
             {
-               // Debug.WriteLine("Time of day is Evening.");
                 return 0.7;//Evening
             }
         }
-
         public double InferAbnormality(double magnitude, DateTime dateTime)
         {
-           // Debug.WriteLine($"InferAbnormality called with magnitude: {magnitude}, dateTime: {dateTime}");
             double fuzzyActivity = FuzzifyActivityLevel(magnitude);
             double fuzzyTime = FuzzifyTimeOfDay(dateTime);
 
-            // Adjust rules based on historical data
             double expectedActivity = GetExpectedActivity(dateTime);
 
             if (fuzzyActivity < 0.5 && expectedActivity > 0.5)
             {
-                Debug.WriteLine("Activity level is 0.2 - high abnormal.");
+                Debug.WriteLine("Activity level is 0.2 - abnormal.");
                 return 0.2; // High abnormality
             }
             else if (fuzzyActivity > 0.5 && expectedActivity < 0.5)
             {
-                Debug.WriteLine("Activity level is 0.8 - low abnormal.");
+                Debug.WriteLine("Activity level is 0.8 - normal.");
                 return 0.8;
             }
-            else if (expectedActivity == 0.5)
+            else 
             {
                 Debug.WriteLine($"activity level is {fuzzyActivity} - fuzzy activity");
                 return fuzzyActivity;
-            }
-            else
-            {
-                Debug.WriteLine("Activity level is 0.2 - low abnormal.");
-                return 0.2; // Low abnormality
-            }
+            }   
         }
         private double GetExpectedActivity(DateTime timeOfDay)
         {

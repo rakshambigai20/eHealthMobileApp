@@ -6,8 +6,6 @@ set DEVICE_ID=WCV5T19322001569
 set PACKAGE_NAME=com.companyname.ehealth
 set LOCAL_DB_PATH=%cd%\eHealth.db3
 
-
-
 REM Function to push the database to the device
 :push_db
 echo Pushing database to device...

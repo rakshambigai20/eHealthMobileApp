@@ -174,8 +174,7 @@ namespace eHealth.Droid.Services
 
             if (greatestMagnitudeData.Magnitude > 10)
             {
-                await HandleEmergency();
-
+                await HandleEmergency("Fall Detected");
             }
 
             if (greatestMagnitudeData.Magnitude < 1.2)
@@ -198,8 +197,6 @@ namespace eHealth.Droid.Services
             if (_secondsCount >= 60)
             {
                 var greatestOverallData = _greatestMagnitudeDataList.OrderByDescending(d => d.Magnitude).First();
-                var location = await GetLocationAsync();
-
                 var dbSensorData = new SensorData
                 {
                     ValueX = greatestOverallData.X,
@@ -207,8 +204,7 @@ namespace eHealth.Droid.Services
                     ValueZ = greatestOverallData.Z,
                     Magnitude = greatestOverallData.Magnitude,
                     DateTime = DateTime.Now,
-                    Latitude = location?.Latitude ?? 0,
-                    Longitude = location?.Longitude ?? 0
+                  
                 };
 
                 await _database.SaveSensorDataAsync(dbSensorData);
@@ -216,47 +212,18 @@ namespace eHealth.Droid.Services
                 _secondsCount = 0;
                 await _database.DeleteOldSensorDataAsync(); // Call to delete old data
             }
-            if (_abnormalityCount >= 14400)
+            //4 hours
+            if (_abnormalityCount >= 1800)
             {
-                await HandleEmergency();
+                await HandleEmergency("Idleness detected ");
                 _abnormalityCount = 0; // Reset abnormality count after handling emergency
 
             }
         }
 
-        private async Task<Location> GetLocationAsync()
-        {
-            try
-            {
-                var status = await MainThread.InvokeOnMainThreadAsync(async () => await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>());
-                if (status != PermissionStatus.Granted)
-                {
-                    status = await MainThread.InvokeOnMainThreadAsync(async () => await Permissions.RequestAsync<Permissions.LocationWhenInUse>());
-                }
+        
 
-                if (status == PermissionStatus.Granted)
-                {
-                    var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
-                    var location = await Geolocation.GetLocationAsync(request);
-
-                    if (location != null)
-                    {
-                        return location;
-                    }
-                }
-                else
-                {
-                    throw new Exception("Location permission denied");
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error getting location: {ex.Message}");
-            }
-            return null;
-        }
-
-        private async Task HandleEmergency()
+        private async Task HandleEmergency(string emergencyReason)
         {
             _senderEmail = await SecureStorage.GetAsync("email");
             _senderPassword = await SecureStorage.GetAsync("password");
@@ -269,7 +236,8 @@ namespace eHealth.Droid.Services
 
             System.Diagnostics.Debug.WriteLine($"Handling emergency with email: {_senderEmail}");
             System.Diagnostics.Debug.WriteLine($"Handling emergency with Password: {_senderPassword}");
-            await _econtactService.HandleEmergency(_senderEmail, _senderPassword);
+            await _econtactService.NotifyUserBeforeAlert(_senderEmail, _senderPassword, emergencyReason);
+           // await _econtactService.HandleEmergency(_senderEmail, _senderPassword);
             System.Diagnostics.Debug.WriteLine("Emergency handled.");
         }
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics; // Added for Debug.WriteLine
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using eHealth.Data;
@@ -26,38 +26,52 @@ namespace eHealth.Service.Service
             _lastMovementTime = DateTime.Now;
             _currentHourData = new List<SensorData>();
             _hourlyTimer = new Timer(3600000); // 1 hour interval (3600000 milliseconds)
-            //_hourlyTimer.Elapsed += AggregateHourlyData;
+            //_hourlyTimer.Elapsed += AggregateHourlyData; // Not uncommented, just logging set up
             _hourlyTimer.Start();
+            Debug.WriteLine("SensorService initialized with timer set for hourly aggregation.");
         }
 
         public async Task InitializeAsync()
         {
+            Debug.WriteLine("Initializing database...");
             await _database.InitializeAsync();
+            Debug.WriteLine("Database initialized.");
         }
 
         public void StartAccelerometer()
         {
+            Debug.WriteLine("Attempting to start accelerometer monitoring...");
             if (Accelerometer.IsMonitoring)
+            {
+                Debug.WriteLine("Accelerometer already monitoring.");
                 return;
+            }
 
             Accelerometer.ReadingChanged += Accelerometer_ReadingChanged;
             Accelerometer.Start(SensorSpeed.UI);
             _isAccelerometerActive = true;
+            Debug.WriteLine("Accelerometer monitoring started.");
         }
 
         public void StopAccelerometer()
         {
+            Debug.WriteLine("Attempting to stop accelerometer monitoring...");
             if (!Accelerometer.IsMonitoring)
+            {
+                Debug.WriteLine("Accelerometer not monitoring.");
                 return;
+            }
 
             Accelerometer.ReadingChanged -= Accelerometer_ReadingChanged;
             Accelerometer.Stop();
             _isAccelerometerActive = false;
+            Debug.WriteLine("Accelerometer monitoring stopped.");
         }
 
-        private async void Accelerometer_ReadingChanged(object sender, AccelerometerChangedEventArgs e)
+        private void Accelerometer_ReadingChanged(object sender, AccelerometerChangedEventArgs e)
         {
             var data = e.Reading;
+            Debug.WriteLine($"Accelerometer reading changed: X={data.Acceleration.X}, Y={data.Acceleration.Y}, Z={data.Acceleration.Z}");
             _lastMovementTime = DateTime.Now; // Update last movement time
 
             var sensorData = new SensorData
@@ -67,47 +81,40 @@ namespace eHealth.Service.Service
                 ValueZ = data.Acceleration.Z,
                 DateTime = DateTime.Now,
             };
-
             _currentHourData.Add(sensorData);
-            // Uncomment the line below if you want to save each reading immediately
-            // await _database.SaveSensorDataAsync(sensorData);
+            Debug.WriteLine($"Sensor data added. Current hour data count: {_currentHourData.Count}");
         }
 
-        //private async void AggregateHourlyData(object sender, ElapsedEventArgs e)
-        //{
-        //    if (_currentHourData.Any())
-        //    {
-        //        var startTime = _currentHourData.First().DateTime;
-        //        var endTime = _currentHourData.Last().DateTime;
-        //        var avgX = _currentHourData.Average(d => d.ValueX);
-        //        var avgY = _currentHourData.Average(d => d.ValueY);
-        //        var avgZ = _currentHourData.Average(d => d.ValueZ);
-        //        var overallMagnitude = Math.Sqrt(avgX * avgX + avgY * avgY + avgZ * avgZ);
-        //        var averageReading = (_currentHourData.Average(d => Math.Sqrt(d.ValueX * d.ValueX + d.ValueY * d.ValueY + d.ValueZ * d.ValueZ)));
+        // Method remains commented out and unchanged
+        // private async void AggregateHourlyData(object sender, ElapsedEventArgs e)
+        // {
+        //     if (_currentHourData.Any())
+        //     {
+        //         ...
+        //     }
+        // }
 
-        //        var analysisData = new AccelerometerAnalysis
-        //        {
-        //            StartTime = startTime,
-        //            EndTime = endTime,
-        //            State = "Active", // Or some other logic to determine state
-        //        };
-
-        //        await _database.SaveAccelerometerAnalysisAsync(analysisData);
-
-        //        // Clear the current hour data after aggregation
-        //        _currentHourData.Clear();
-        //    }
-        //}
-
-        public async Task<List<AccelerometerAnalysis>> GetAccelerometerDataAsync()
-        {
-            return await _database.GetAllAccelerometerAnalysisAsync();
-        }
         public async Task<List<SensorData>> GetSensorDataAsync()
         {
-            return await _database.GetAllSensorDataAsync();
-        }
+            Debug.WriteLine("Inside GetSensorDataAsync");
+            if (_database == null)
+                Debug.WriteLine("Database reference is null");
+            else
+                Debug.WriteLine("Database is initialized");
 
+            try
+            {
+                Debug.WriteLine("Attempting to fetch all sensor data...");
+                var data = await _database.GetAllSensorDataAsync();
+                Debug.WriteLine($"Fetched {data.Count} sensor data entries.");
+                return data;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Exception in GetSensorDataAsync: {ex}");
+                throw; // Retain the stack trace by rethrowing the exception without specifying it.
+            }
+        }
 
     }
 }

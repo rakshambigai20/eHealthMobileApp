@@ -24,6 +24,7 @@ namespace eHealth.ViewModels
         public EContactViewModel()
         {
             eContactService = new EContactService();
+
             Title = "Emergency Contacts";
             Contacts = new ObservableCollection<EmergencyContacts>();
             LoadContactsCommand = new Command(async () => await ExecuteLoadContactsCommand());
@@ -51,7 +52,8 @@ namespace eHealth.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                Debug.WriteLine($"Failed to load contacts: {ex.Message}");
+                await App.Current.MainPage.DisplayAlert("Error", "Failed to load contacts. Please try again.", "OK");
             }
             finally
             {
@@ -59,10 +61,13 @@ namespace eHealth.ViewModels
             }
         }
 
+    
         public void OnAppearing()
         {
             IsBusy = true;
             SelectedContact = null;
+            // Ensure contacts are reloaded when the view appears
+            LoadContactsCommand.Execute(null);
         }
 
         public EmergencyContacts SelectedContact

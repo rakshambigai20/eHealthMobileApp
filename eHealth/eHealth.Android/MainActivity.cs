@@ -5,9 +5,12 @@ using Android.Content.PM;
 using Android.OS;
 using AndroidX.Core.App;
 using AndroidX.Core.Content;
+using eHealth.Droid.Service;
 using eHealth.Droid.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using eHealth.Service.IService;
+
 
 namespace eHealth.Droid
 {
@@ -22,6 +25,7 @@ namespace eHealth.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             Forms.Init(this, savedInstanceState);
+            DependencyService.Register<INotifyService, NotificationService>();
 
             LoadApplication(new App());
 

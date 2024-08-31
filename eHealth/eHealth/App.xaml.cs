@@ -39,7 +39,7 @@ namespace eHealth
             {
                 if (sensorService == null)
                 {
-                    sensorService = new SensorService(Database);
+                    sensorService = new SensorService(Database); // Ensure the database is initialized before SensorService
                 }
                 return sensorService;
             }
@@ -48,18 +48,26 @@ namespace eHealth
         public App()
         {
             InitializeComponent();
-            DependencyService.Register<SensorService>();
-            DependencyService.Register<UserService>();
+            DependencyService.Register<UserService>(); // Registering only UserService
             MainPage = new AppShell();
         }
 
         protected override async void OnStart()
         {
-            // Handle when your app starts
-            await InitializeDatabaseAsync();
-            StartAccelerometerService();
-            await SecureStorage.SetAsync("email", "ehealthuseralert@gmail.com");
-            await SecureStorage.SetAsync("password", "nvds nbze xzkz ytht");
+            try
+            {
+                // Handle when your app starts
+                await InitializeDatabaseAsync();
+                StartAccelerometerService();
+
+                await SecureStorage.SetAsync("email", "ehealthuseralert@gmail.com");
+                await SecureStorage.SetAsync("password", "nvds nbze xzkz ytht");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error during OnStart: {ex}");
+                // Handle or report the error appropriately
+            }
         }
 
         protected override void OnSleep()
@@ -78,20 +86,44 @@ namespace eHealth
 
         private async Task InitializeDatabaseAsync()
         {
-            // Ensuring the database is created and initialized asynchronously
-            Debug.WriteLine("Initializing database...");
-            await Database.InitializeAsync();
-            Debug.WriteLine("Database initialization complete.");
+            try
+            {
+                // Ensuring the database is created and initialized asynchronously
+                Debug.WriteLine("Initializing database...");
+                await Database.InitializeAsync();
+                Debug.WriteLine("Database initialization complete.");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error during database initialization: {ex}");
+                // Handle or report the error appropriately
+            }
         }
 
         private void StartAccelerometerService()
         {
-            DependencyService.Get<IAccelerometerService>()?.StartService();
+            var accelerometerService = DependencyService.Get<IAccelerometerService>();
+            if (accelerometerService != null)
+            {
+                accelerometerService.StartService();
+            }
+            else
+            {
+                Debug.WriteLine("AccelerometerService not found in DependencyService.");
+            }
         }
 
         private void StopAccelerometerService()
         {
-            DependencyService.Get<IAccelerometerService>()?.StopService();
+            var accelerometerService = DependencyService.Get<IAccelerometerService>();
+            if (accelerometerService != null)
+            {
+                accelerometerService.StopService();
+            }
+            else
+            {
+                Debug.WriteLine("AccelerometerService not found in DependencyService.");
+            }
         }
     }
 }

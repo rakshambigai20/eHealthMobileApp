@@ -11,7 +11,7 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding AddContactCommand}" />
     </ContentPage.ToolbarItems>
-
+   
     <RefreshView Command="{Binding LoadContactsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <CollectionView x:Name="EContactsListView"
                         ItemsSource="{Binding Contacts}"
@@ -60,4 +60,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
     </RefreshView>
+    
+   
+  
 </ContentPage>

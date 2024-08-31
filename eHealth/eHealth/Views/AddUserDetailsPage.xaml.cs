@@ -1,5 +1,4 @@
-﻿using eHealth.Models;
-using eHealth.ViewModels;
+﻿using eHealth.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

@@ -9,17 +9,15 @@
     ".NETStandard,Version=v2.0/": {
       "eHealth/1.0.0": {
         "dependencies": {
-          "Accord.MachineLearning": "3.8.0",
           "CommunityToolkit.Mvvm": "8.2.2",
           "Microcharts.Forms": "0.9.5.9",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.1",
-          "Microsoft.ML": "3.0.1",
-          "Microsoft.ML.OnnxRuntime": "1.18.0",
-          "Microsoft.ML.TimeSeries": "3.0.1",
           "NETStandard.Library": "2.0.3",
           "Newtonsoft.Json": "13.0.3",
           "OxyPlot.Xamarin.Forms": "2.1.0",
           "Refractored.MvvmHelpers": "1.6.2",
+          "System.Numerics.Vectors": "4.5.0",
+          "System.Runtime.Loader": "4.3.0",
           "Xam.Plugins.Messaging": "5.2.0",
           "Xamarin.Essentials": "1.8.1",
           "Xamarin.Forms": "5.0.0.2662",
@@ -29,54 +27,6 @@
         },
         "runtime": {
           "eHealth.dll": {}
-        }
-      },
-      "Accord/3.8.0": {
-        "runtime": {
-          "lib/netstandard2.0/Accord.dll": {
-            "assemblyVersion": "3.8.0.0",
-            "fileVersion": "3.8.0.6134"
-          }
-        }
-      },
-      "Accord.MachineLearning/3.8.0": {
-        "dependencies": {
-          "Accord": "3.8.0",
-          "Accord.Math": "3.8.0",
-          "Accord.Statistics": "3.8.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Accord.MachineLearning.dll": {
-            "assemblyVersion": "3.8.0.0",
-            "fileVersion": "3.8.0.6134"
-          }
-        }
-      },
-      "Accord.Math/3.8.0": {
-        "dependencies": {
-          "Accord": "3.8.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Accord.Math.Core.dll": {
-            "assemblyVersion": "3.8.0.0",
-            "fileVersion": "3.8.0.6134"
-          },
-          "lib/netstandard2.0/Accord.Math.dll": {
-            "assemblyVersion": "3.8.0.0",
-            "fileVersion": "3.8.0.6134"
-          }
-        }
-      },
-      "Accord.Statistics/3.8.0": {
-        "dependencies": {
-          "Accord": "3.8.0",
-          "Accord.Math": "3.8.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Accord.Statistics.dll": {
-            "assemblyVersion": "3.8.0.0",
-            "fileVersion": "3.8.0.6134"
-          }
         }
       },
       "CommunityToolkit.Mvvm/8.2.2": {
@@ -135,14 +85,6 @@
           }
         }
       },
-      "Microsoft.Bcl.Numerics/8.0.0": {
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Bcl.Numerics.dll": {
-            "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.23.53103"
-          }
-        }
-      },
       "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.1": {
         "dependencies": {
           "Microsoft.Bcl.AsyncInterfaces": "8.0.0",
@@ -152,101 +94,6 @@
           "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
             "assemblyVersion": "8.0.0.0",
             "fileVersion": "8.0.324.11423"
-          }
-        }
-      },
-      "Microsoft.ML/3.0.1": {
-        "dependencies": {
-          "Microsoft.ML.CpuMath": "3.0.1",
-          "Microsoft.ML.DataView": "3.0.1",
-          "Newtonsoft.Json": "13.0.3",
-          "System.CodeDom": "4.5.0",
-          "System.Collections.Immutable": "1.5.0",
-          "System.Memory": "4.5.5",
-          "System.Reflection.Emit.Lightweight": "4.3.0",
-          "System.Threading.Channels": "4.7.1"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.ML.Core.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.0.124.6804"
-          },
-          "lib/netstandard2.0/Microsoft.ML.Data.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.0.124.6804"
-          },
-          "lib/netstandard2.0/Microsoft.ML.KMeansClustering.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.0.124.6804"
-          },
-          "lib/netstandard2.0/Microsoft.ML.PCA.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.0.124.6804"
-          },
-          "lib/netstandard2.0/Microsoft.ML.StandardTrainers.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.0.124.6804"
-          },
-          "lib/netstandard2.0/Microsoft.ML.Transforms.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.0.124.6804"
-          },
-          "lib/netstandard2.0/Microsoft.ML.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.0.124.6804"
-          }
-        }
-      },
-      "Microsoft.ML.CpuMath/3.0.1": {
-        "dependencies": {
-          "System.Memory": "4.5.5",
-          "System.Numerics.Tensors": "8.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.ML.CpuMath.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.0.124.6804"
-          }
-        }
-      },
-      "Microsoft.ML.DataView/3.0.1": {
-        "dependencies": {
-          "System.Collections.Immutable": "1.5.0",
-          "System.Memory": "4.5.5"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.ML.DataView.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.0.124.6804"
-          }
-        }
-      },
-      "Microsoft.ML.Mkl.Redist/3.0.1": {},
-      "Microsoft.ML.OnnxRuntime/1.18.0": {
-        "dependencies": {
-          "Microsoft.ML.OnnxRuntime.Managed": "1.18.0"
-        }
-      },
-      "Microsoft.ML.OnnxRuntime.Managed/1.18.0": {
-        "dependencies": {
-          "System.Memory": "4.5.5"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.ML.OnnxRuntime.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
-          }
-        }
-      },
-      "Microsoft.ML.TimeSeries/3.0.1": {
-        "dependencies": {
-          "Microsoft.ML": "3.0.1",
-          "Microsoft.ML.Mkl.Redist": "3.0.1"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.ML.TimeSeries.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.0.124.6804"
           }
         }
       },
@@ -368,22 +215,6 @@
           }
         }
       },
-      "System.CodeDom/4.5.0": {
-        "runtime": {
-          "lib/netstandard2.0/System.CodeDom.dll": {
-            "assemblyVersion": "4.0.1.0",
-            "fileVersion": "4.6.26515.6"
-          }
-        }
-      },
-      "System.Collections.Immutable/1.5.0": {
-        "runtime": {
-          "lib/netstandard2.0/System.Collections.Immutable.dll": {
-            "assemblyVersion": "1.2.3.0",
-            "fileVersion": "4.6.26515.6"
-          }
-        }
-      },
       "System.ComponentModel.Annotations/5.0.0": {
         "runtime": {
           "lib/netstandard2.0/System.ComponentModel.Annotations.dll": {
@@ -414,18 +245,6 @@
           }
         }
       },
-      "System.Numerics.Tensors/8.0.0": {
-        "dependencies": {
-          "Microsoft.Bcl.Numerics": "8.0.0",
-          "System.Memory": "4.5.5"
-        },
-        "runtime": {
-          "lib/netstandard2.0/System.Numerics.Tensors.dll": {
-            "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.23.53103"
-          }
-        }
-      },
       "System.Numerics.Vectors/4.5.0": {
         "runtime": {
           "lib/netstandard2.0/System.Numerics.Vectors.dll": {
@@ -441,33 +260,6 @@
           "System.IO": "4.3.0",
           "System.Reflection.Primitives": "4.3.0",
           "System.Runtime": "4.3.0"
-        }
-      },
-      "System.Reflection.Emit.ILGeneration/4.3.0": {
-        "dependencies": {
-          "System.Reflection": "4.3.0",
-          "System.Reflection.Primitives": "4.3.0",
-          "System.Runtime": "4.3.0"
-        },
-        "runtime": {
-          "lib/netstandard1.3/System.Reflection.Emit.ILGeneration.dll": {
-            "assemblyVersion": "4.0.2.0",
-            "fileVersion": "4.6.24705.1"
-          }
-        }
-      },
-      "System.Reflection.Emit.Lightweight/4.3.0": {
-        "dependencies": {
-          "System.Reflection": "4.3.0",
-          "System.Reflection.Emit.ILGeneration": "4.3.0",
-          "System.Reflection.Primitives": "4.3.0",
-          "System.Runtime": "4.3.0"
-        },
-        "runtime": {
-          "lib/netstandard1.3/System.Reflection.Emit.Lightweight.dll": {
-            "assemblyVersion": "4.0.2.0",
-            "fileVersion": "4.6.24705.1"
-          }
         }
       },
       "System.Reflection.Primitives/4.3.0": {
@@ -491,22 +283,24 @@
           }
         }
       },
+      "System.Runtime.Loader/4.3.0": {
+        "dependencies": {
+          "System.IO": "4.3.0",
+          "System.Reflection": "4.3.0",
+          "System.Runtime": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.5/System.Runtime.Loader.dll": {
+            "assemblyVersion": "4.0.1.0",
+            "fileVersion": "4.6.24705.1"
+          }
+        }
+      },
       "System.Text.Encoding/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.Runtime": "4.3.0"
-        }
-      },
-      "System.Threading.Channels/4.7.1": {
-        "dependencies": {
-          "System.Threading.Tasks.Extensions": "4.5.4"
-        },
-        "runtime": {
-          "lib/netstandard2.0/System.Threading.Channels.dll": {
-            "assemblyVersion": "4.0.2.0",
-            "fileVersion": "4.700.20.21406"
-          }
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -572,12 +366,10 @@
       },
       "eHealth.Data/1.0.0": {
         "dependencies": {
-          "Accord.MachineLearning": "3.8.0",
           "Microcharts.Forms": "0.9.5.9",
-          "Microsoft.ML": "3.0.1",
-          "Microsoft.ML.OnnxRuntime": "1.18.0",
-          "Microsoft.ML.TimeSeries": "3.0.1",
           "OxyPlot.Xamarin.Forms": "2.1.0",
+          "System.Numerics.Vectors": "4.5.0",
+          "System.Runtime.Loader": "4.3.0",
           "Xam.Plugins.Messaging": "5.2.0",
           "Xamarin.Essentials": "1.8.1",
           "Xamarin.Forms": "5.0.0.2662",
@@ -589,14 +381,12 @@
       },
       "eHealth.Service/1.0.0": {
         "dependencies": {
-          "Accord.MachineLearning": "3.8.0",
           "Microcharts.Forms": "0.9.5.9",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.1",
-          "Microsoft.ML": "3.0.1",
-          "Microsoft.ML.OnnxRuntime": "1.18.0",
-          "Microsoft.ML.TimeSeries": "3.0.1",
           "Newtonsoft.Json": "13.0.3",
           "OxyPlot.Xamarin.Forms": "2.1.0",
+          "System.Numerics.Vectors": "4.5.0",
+          "System.Runtime.Loader": "4.3.0",
           "Xam.Plugins.Messaging": "5.2.0",
           "Xamarin.Essentials": "1.8.1",
           "Xamarin.Forms": "5.0.0.2662",
@@ -613,34 +403,6 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
-    },
-    "Accord/3.8.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-7kJrB570dO5ELim+2KWQNozuvWO9/BuZfZspdFy36fcWPNF2CEccblLuILeUlI8QJYd2DlBy0bfK8BlCx/uayA==",
-      "path": "accord/3.8.0",
-      "hashPath": "accord.3.8.0.nupkg.sha512"
-    },
-    "Accord.MachineLearning/3.8.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-6d8HY6/S4t5LBgD4YWrHISDX4q9s/caBu4fbHhq5RH2U4ETbtnDcvwgtsqGHKH1FyPylWFOniYjLO4B4xkEEuw==",
-      "path": "accord.machinelearning/3.8.0",
-      "hashPath": "accord.machinelearning.3.8.0.nupkg.sha512"
-    },
-    "Accord.Math/3.8.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-K3dzeQjDIrwRnoTRoMOoIbul2Uc0B8cnEtdrSlirmIo37C+jVkmYpJzme/z4Kg99XR2Vj5W5TTNlhjn+AKR+8A==",
-      "path": "accord.math/3.8.0",
-      "hashPath": "accord.math.3.8.0.nupkg.sha512"
-    },
-    "Accord.Statistics/3.8.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-8WsmCE31Qdy3FmRvwtAY3F9/fJEi/6uyLQrhOvSI6pP6gpoaacmCrJRIphkGf2EB8gKHRWLAc4UXr1OOPHxkmQ==",
-      "path": "accord.statistics/3.8.0",
-      "hashPath": "accord.statistics.3.8.0.nupkg.sha512"
     },
     "CommunityToolkit.Mvvm/8.2.2": {
       "type": "package",
@@ -670,68 +432,12 @@
       "path": "microsoft.bcl.asyncinterfaces/8.0.0",
       "hashPath": "microsoft.bcl.asyncinterfaces.8.0.0.nupkg.sha512"
     },
-    "Microsoft.Bcl.Numerics/8.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-bguIQwjO3tTWLqB+Y4ez4iLJtsaGn5FBvUc8l1ghO3I+uxIjuOo41Bb8kNssXhgwg0EV7fqbKLSNjvGOS/NkEQ==",
-      "path": "microsoft.bcl.numerics/8.0.0",
-      "hashPath": "microsoft.bcl.numerics.8.0.0.nupkg.sha512"
-    },
     "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.1": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-fGLiCRLMYd00JYpClraLjJTNKLmMJPnqxMaiRzEBIIvevlzxz33mXy39Lkd48hu1G+N21S7QpaO5ZzKsI6FRuA==",
       "path": "microsoft.extensions.dependencyinjection.abstractions/8.0.1",
       "hashPath": "microsoft.extensions.dependencyinjection.abstractions.8.0.1.nupkg.sha512"
-    },
-    "Microsoft.ML/3.0.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-AE4DFwsDNVM5+2RVH3X9mRsqPSs+DrEd7TVA5TyLxPEerQC8wl5YTVQOVMsWCp2AroWGXEIny8xyXdOXfC+9BA==",
-      "path": "microsoft.ml/3.0.1",
-      "hashPath": "microsoft.ml.3.0.1.nupkg.sha512"
-    },
-    "Microsoft.ML.CpuMath/3.0.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-uVDD37oZMzPOtSpiACtVSOin7++4qohkAhsMO2l+90AToNPjatKTd6XiJoVI3+k7gxnP6UL7WJSafWOq4/s2KQ==",
-      "path": "microsoft.ml.cpumath/3.0.1",
-      "hashPath": "microsoft.ml.cpumath.3.0.1.nupkg.sha512"
-    },
-    "Microsoft.ML.DataView/3.0.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-mkZt1r6Nx5CAoD3klhC7VMQFzwWMHHjoYpv3X9u+GMvTMbSRaDdiA88HUoOzT7kCeq4/L1nKctmrByhLK28Xjw==",
-      "path": "microsoft.ml.dataview/3.0.1",
-      "hashPath": "microsoft.ml.dataview.3.0.1.nupkg.sha512"
-    },
-    "Microsoft.ML.Mkl.Redist/3.0.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-dabxIi1NpbwuheELKETgV4yXcy8rGft+oJBKHtquRf0YMAM04NHZmtBqZcwqAnRWkIi0E+bl40z6rg52IfDonA==",
-      "path": "microsoft.ml.mkl.redist/3.0.1",
-      "hashPath": "microsoft.ml.mkl.redist.3.0.1.nupkg.sha512"
-    },
-    "Microsoft.ML.OnnxRuntime/1.18.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-K379Dh/KZAm0RwrieOueiNFsES5/0qr5f9aHYA7ZU04AJa0U5BxvAKc26DTwjVpJ6q46JXTK9TzVYOeQuVZyTg==",
-      "path": "microsoft.ml.onnxruntime/1.18.0",
-      "hashPath": "microsoft.ml.onnxruntime.1.18.0.nupkg.sha512"
-    },
-    "Microsoft.ML.OnnxRuntime.Managed/1.18.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-tXjZ8nCjFJZSw8qltPFwpiyS6WTB1uxRNiWVujzr/nlwwtpMlE8wIF0JvuaxsE+LzZzNGAeYggKxbrrafRxwJw==",
-      "path": "microsoft.ml.onnxruntime.managed/1.18.0",
-      "hashPath": "microsoft.ml.onnxruntime.managed.1.18.0.nupkg.sha512"
-    },
-    "Microsoft.ML.TimeSeries/3.0.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-luvwhxYL4vcWTj0uQOYajOriN1KlhTzckVtqVhZ4hKpdaV8dJMqMxg/fEbk/GMpsJCme7vrLjCy4YXLJB5qq5w==",
-      "path": "microsoft.ml.timeseries/3.0.1",
-      "hashPath": "microsoft.ml.timeseries.3.0.1.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",
@@ -838,20 +544,6 @@
       "path": "system.buffers/4.5.1",
       "hashPath": "system.buffers.4.5.1.nupkg.sha512"
     },
-    "System.CodeDom/4.5.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-gqpR1EeXOuzNQWL7rOzmtdIz3CaXVjSQCiaGOs2ivjPwynKSJYm39X81fdlp7WuojZs/Z5t1k5ni7HtKQurhjw==",
-      "path": "system.codedom/4.5.0",
-      "hashPath": "system.codedom.4.5.0.nupkg.sha512"
-    },
-    "System.Collections.Immutable/1.5.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-EXKiDFsChZW0RjrZ4FYHu9aW6+P4MCgEDCklsVseRfhoO0F+dXeMSsMRAlVXIo06kGJ/zv+2w1a2uc2+kxxSaQ==",
-      "path": "system.collections.immutable/1.5.0",
-      "hashPath": "system.collections.immutable.1.5.0.nupkg.sha512"
-    },
     "System.ComponentModel.Annotations/5.0.0": {
       "type": "package",
       "serviceable": true,
@@ -873,13 +565,6 @@
       "path": "system.memory/4.5.5",
       "hashPath": "system.memory.4.5.5.nupkg.sha512"
     },
-    "System.Numerics.Tensors/8.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-fhODzTe9ON9IzmRfyVeA6L8yXOciMtpq1YufkRVBliggcVKZE+XDxqIn46+yF4PWR6wNPuDpXtPpuY86VcKxUA==",
-      "path": "system.numerics.tensors/8.0.0",
-      "hashPath": "system.numerics.tensors.8.0.0.nupkg.sha512"
-    },
     "System.Numerics.Vectors/4.5.0": {
       "type": "package",
       "serviceable": true,
@@ -893,20 +578,6 @@
       "sha512": "sha512-KMiAFoW7MfJGa9nDFNcfu+FpEdiHpWgTcS2HdMpDvt9saK3y/G4GwprPyzqjFH9NTaGPQeWNHU+iDlDILj96aQ==",
       "path": "system.reflection/4.3.0",
       "hashPath": "system.reflection.4.3.0.nupkg.sha512"
-    },
-    "System.Reflection.Emit.ILGeneration/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-59tBslAk9733NXLrUJrwNZEzbMAcu8k344OYo+wfSVygcgZ9lgBdGIzH/nrg3LYhXceynyvTc8t5/GD4Ri0/ng==",
-      "path": "system.reflection.emit.ilgeneration/4.3.0",
-      "hashPath": "system.reflection.emit.ilgeneration.4.3.0.nupkg.sha512"
-    },
-    "System.Reflection.Emit.Lightweight/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-oadVHGSMsTmZsAF864QYN1t1QzZjIcuKU3l2S9cZOwDdDueNTrqq1yRj7koFfIGEnKpt6NjpL3rOzRhs4ryOgA==",
-      "path": "system.reflection.emit.lightweight/4.3.0",
-      "hashPath": "system.reflection.emit.lightweight.4.3.0.nupkg.sha512"
     },
     "System.Reflection.Primitives/4.3.0": {
       "type": "package",
@@ -929,19 +600,19 @@
       "path": "system.runtime.compilerservices.unsafe/6.0.0",
       "hashPath": "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
     },
+    "System.Runtime.Loader/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DHMaRn8D8YCK2GG2pw+UzNxn/OHVfaWx7OTLBD/hPegHZZgcZh3H6seWegrC4BYwsfuGrywIuT+MQs+rPqRLTQ==",
+      "path": "system.runtime.loader/4.3.0",
+      "hashPath": "system.runtime.loader.4.3.0.nupkg.sha512"
+    },
     "System.Text.Encoding/4.3.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-BiIg+KWaSDOITze6jGQynxg64naAPtqGHBwDrLaCtixsa5bKiR8dpPOHA7ge3C0JJQizJE+sfkz1wV+BAKAYZw==",
       "path": "system.text.encoding/4.3.0",
       "hashPath": "system.text.encoding.4.3.0.nupkg.sha512"
-    },
-    "System.Threading.Channels/4.7.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-6akRtHK/wab3246t4p5v3HQrtQk8LboOt5T4dtpNgsp3zvDeM4/Gx8V12t0h+c/W9/enUrilk8n6EQqdQorZAA==",
-      "path": "system.threading.channels/4.7.1",
-      "hashPath": "system.threading.channels.4.7.1.nupkg.sha512"
     },
     "System.Threading.Tasks/4.3.0": {
       "type": "package",

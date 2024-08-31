@@ -23,11 +23,11 @@ namespace eHealth.Data
 
         private async Task CreateTablesAsync()
         {
-            // Create new tables with the correct schema
+            // Create tables with the correct schema
             await _database.CreateTableAsync<User>();
             await _database.CreateTableAsync<SensorData>();
             await _database.CreateTableAsync<EmergencyContacts>();
-            await _database.CreateTableAsync<AccelerometerAnalysis>();
+            await _database.CreateTableAsync<AlertRecord>();
         }
 
         public static string FormatDateTime(long ticks)
@@ -44,8 +44,7 @@ namespace eHealth.Data
 
         public Task<User> GetUserAsync()
         {
-            return _database.Table<User>()
-                            .FirstOrDefaultAsync();
+            return _database.Table<User>().FirstOrDefaultAsync();
         }
 
         public Task<int> SaveUserAsync(User user)
@@ -73,9 +72,14 @@ namespace eHealth.Data
                             .FirstOrDefaultAsync();
         }
 
-        public Task<int> SaveSensorDataAsync(SensorData sensorData)
+        public async Task<int> SaveSensorDataAsync(SensorData sensorData)
         {
-            return _database.InsertAsync(sensorData);
+            User user = await GetUserAsync();
+            if (user != null)
+            {
+                sensorData.UserEmail = user.Email;
+            }
+            return await _database.InsertAsync(sensorData);
         }
 
         public async Task DeleteOldSensorDataAsync()
@@ -103,17 +107,6 @@ namespace eHealth.Data
             return _database.DeleteAllAsync<SensorData>();
         }
 
-        // AccelerometerAnalysis CRUD operations
-        public Task<int> SaveAccelerometerAnalysisAsync(AccelerometerAnalysis analysis)
-        {
-            return _database.InsertAsync(analysis);
-        }
-
-        public Task<List<AccelerometerAnalysis>> GetAllAccelerometerAnalysisAsync()
-        {
-            return _database.Table<AccelerometerAnalysis>().ToListAsync();
-        }
-
         // EmergencyContacts CRUD operations
         public Task<List<EmergencyContacts>> GetEmergencyContactsAsync()
         {
@@ -134,10 +127,10 @@ namespace eHealth.Data
                             .FirstOrDefaultAsync();
         }
 
-        public Task<EmergencyContacts> GetEmergencyContactbyEmailAsync(string id)
+        public Task<EmergencyContacts> GetEmergencyContactbyEmailAsync(string email)
         {
             return _database.Table<EmergencyContacts>()
-                            .Where(i => i.Email == id)
+                            .Where(i => i.Email == email)
                             .FirstOrDefaultAsync();
         }
 
@@ -153,6 +146,12 @@ namespace eHealth.Data
             else
             {
                 Console.WriteLine("Inserting new Emergency Contact");
+                User user = await GetUserAsync();
+                if (user != null)
+                {
+                    contact.UserId = user.UserId;
+                    contact.UserEmail = user.Email;
+                }
                 var result = await _database.InsertAsync(contact);
                 Console.WriteLine($"Insert result: {result}");
                 return result;
@@ -162,6 +161,38 @@ namespace eHealth.Data
         public Task<int> DeleteEmergencyContactAsync(EmergencyContacts contact)
         {
             return _database.DeleteAsync(contact);
+        }
+
+        // AlertRecord CRUD operations
+        public async Task<int> SaveAlertRecordAsync(string alertReason)
+        {
+            User user = await GetUserAsync();
+            if (user == null)
+            {
+                throw new InvalidOperationException("User not found");
+            }
+
+            var alertRecord = new AlertRecord
+            {
+                alert_DateTime = DateTime.Now,  // Record the current date and time
+                userId = user.UserId,
+                userEmail = user.Email,
+                alertReason = alertReason
+            };
+
+            int localResult = await _database.InsertAsync(alertRecord);
+            return localResult;
+        }
+
+        public async Task<int> UpdateAlertRecordAsync(AlertRecord record)
+        {
+            var result = await _database.UpdateAsync(record);
+            return result;
+        }
+
+        public Task<List<AlertRecord>> GetAlertRecordsAsync()
+        {
+            return _database.Table<AlertRecord>().ToListAsync();
         }
     }
 }

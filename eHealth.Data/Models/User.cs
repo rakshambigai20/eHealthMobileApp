@@ -7,7 +7,7 @@ namespace eHealth.Data.Models
     public class User
     {
         [PrimaryKey, AutoIncrement]
-        public int UserId { get; set; }  // Ensure this is an int
+        public int UserId { get; set; } 
         public string Name { get; set; }
         public DateTime DOB { get; set; }
         public int age { get; set; }
@@ -15,5 +15,7 @@ namespace eHealth.Data.Models
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string Location { get; set; }
+       
+
     }
 }

@@ -10,5 +10,6 @@ namespace eHealth.Service.IService
         Task<User> GetUser();
         Task AddUser(T user);
         Task UpdateUser(T user);
+        
     }
 }

@@ -5,13 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Accord.MachineLearning" Version="3.8.0" />
     <PackageReference Include="Microcharts.Forms" Version="0.9.5.9" />
-    <PackageReference Include="Microsoft.ML" Version="3.0.1" />
-    <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.18.0" />
-    <PackageReference Include="Microsoft.ML.TimeSeries" Version="3.0.1" />
     <PackageReference Include="OxyPlot.Xamarin.Forms" Version="2.1.0" />
     <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
+    <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
     <PackageReference Include="Xam.Plugins.Messaging" Version="5.2.0" />
     <PackageReference Include="Xamarin.Essentials" Version="1.8.1" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2662" />

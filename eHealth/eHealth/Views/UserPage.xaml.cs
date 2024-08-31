@@ -22,7 +22,15 @@ namespace eHealth.Views
         {
             base.OnAppearing();
             _refreshTimer.Start();
-            ((UserViewModel)BindingContext).LoadSensorDataCommand.Execute(null);
+            try
+            {
+                ((UserViewModel)BindingContext)?.LoadSensorDataCommand.Execute(null);
+            }
+            catch (Exception ex)
+            {
+                // Handle or log the exception
+                Console.WriteLine($"Error during OnAppearing: {ex.Message}");
+            }
         }
 
         protected override void OnDisappearing()
@@ -35,7 +43,15 @@ namespace eHealth.Views
         {
             Device.BeginInvokeOnMainThread(() =>
             {
-                ((UserViewModel)BindingContext).LoadSensorDataCommand.Execute(null);
+                try
+                {
+                    ((UserViewModel)BindingContext)?.LoadSensorDataCommand.Execute(null);
+                }
+                catch (Exception ex)
+                {
+                    // Handle or log the exception
+                    Console.WriteLine($"Error during timer refresh: {ex.Message}");
+                }
             });
         }
     }

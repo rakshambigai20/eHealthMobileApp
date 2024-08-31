@@ -1,4 +1,3 @@
-C:\Users\balar\source\repos\eHealth\eHealth\eHealth\bin\Release\netstandard2.0\Accord.dll.config
 C:\Users\balar\source\repos\eHealth\eHealth\eHealth\bin\Release\netstandard2.0\eHealth.deps.json
 C:\Users\balar\source\repos\eHealth\eHealth\eHealth\bin\Release\netstandard2.0\eHealth.dll
 C:\Users\balar\source\repos\eHealth\eHealth\eHealth\bin\Release\netstandard2.0\ref\eHealth.dll
@@ -15,12 +14,9 @@ C:\Users\balar\source\repos\eHealth\eHealth\eHealth\obj\Release\netstandard2.0\V
 C:\Users\balar\source\repos\eHealth\eHealth\eHealth\obj\Release\netstandard2.0\Views\AddUserDetailsPage.xaml.g.cs
 C:\Users\balar\source\repos\eHealth\eHealth\eHealth\obj\Release\netstandard2.0\Views\EContactDetailPage.xaml.g.cs
 C:\Users\balar\source\repos\eHealth\eHealth\eHealth\obj\Release\netstandard2.0\Views\EContactPage.xaml.g.cs
-C:\Users\balar\source\repos\eHealth\eHealth\eHealth\obj\Release\netstandard2.0\Views\LoginPage.xaml.g.cs
+C:\Users\balar\source\repos\eHealth\eHealth\eHealth\obj\Release\netstandard2.0\Views\EmergencyPage.xaml.g.cs
 C:\Users\balar\source\repos\eHealth\eHealth\eHealth\obj\Release\netstandard2.0\Views\ModifyEContactDetailPage.xaml.g.cs
-C:\Users\balar\source\repos\eHealth\eHealth\eHealth\obj\Release\netstandard2.0\Views\SensorPage.xaml.g.cs
 C:\Users\balar\source\repos\eHealth\eHealth\eHealth\obj\Release\netstandard2.0\Views\UserPage.xaml.g.cs
-C:\Users\balar\source\repos\eHealth\eHealth\eHealth\obj\Release\netstandard2.0\eHealth.AssemblyInfoInputs.cache
-C:\Users\balar\source\repos\eHealth\eHealth\eHealth\obj\Release\netstandard2.0\eHealth.AssemblyInfo.cs
 C:\Users\balar\source\repos\eHealth\eHealth\eHealth\obj\Release\netstandard2.0\eHealth.csproj.CoreCompileInputs.cache
 C:\Users\balar\source\repos\eHealth\eHealth\eHealth\obj\Release\netstandard2.0\eHealth.sourcelink.json
 C:\Users\balar\source\repos\eHealth\eHealth\eHealth\obj\Release\netstandard2.0\XamlC.stamp

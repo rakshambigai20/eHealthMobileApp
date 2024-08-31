@@ -9,12 +9,13 @@ using eHealth.Data.Models;
 using Microcharts;
 using SkiaSharp;
 using System.Collections.Generic;
+using System.Diagnostics;  // Add this line
 
 namespace eHealth.ViewModels
 {
     public class SensorViewModel : BaseViewModel
     {
-        private ISensorService _sensorService;
+        private readonly ISensorService _sensorService;
         public ObservableCollection<SensorData> SensorDataList { get; }
         public ICommand LoadDataCommand { get; }
 
@@ -27,31 +28,54 @@ namespace eHealth.ViewModels
 
         public SensorViewModel()
         {
-            _sensorService = App.SensorService;
+            _sensorService = App.SensorService ?? throw new InvalidOperationException("Sensor service is not initialized.");
             SensorDataList = new ObservableCollection<SensorData>();
 
             LoadDataCommand = new Command(async () => await LoadDataAsync());
 
-            // Automatically load data when the view model is created
-            LoadDataAsync().ConfigureAwait(false);
+            // Properly handle the async call in the constructor
+            Task.Run(async () => await LoadDataAsync());
         }
 
         private async Task LoadDataAsync()
         {
-            var data = await _sensorService.GetSensorDataAsync();
-            var todayData = data.Where(d => d.DateTime.Date == DateTime.Today).ToList();
-
-            SensorDataList.Clear();
-            foreach (var item in todayData)
+            try
             {
-                SensorDataList.Add(item);
-            }
+                var data = await _sensorService.GetSensorDataAsync();
 
-            CreateChart(todayData);
+                if (data == null || !data.Any())
+                {
+                    // Handle the case where there is no data
+                    Chart = null;
+                    return;
+                }
+
+                var todayData = data.Where(d => d.DateTime.Date == DateTime.Today).ToList();
+
+                SensorDataList.Clear();
+                foreach (var item in todayData)
+                {
+                    SensorDataList.Add(item);
+                }
+
+                CreateChart(todayData);
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions appropriately (log, notify user, etc.)
+                Debug.WriteLine($"Error loading sensor data: {ex.Message}");
+            }
         }
 
         private void CreateChart(IEnumerable<SensorData> data)
         {
+            if (data == null || !data.Any())
+            {
+                // Handle the case where there is no data to create a chart
+                Chart = null;
+                return;
+            }
+
             var hourlyData = data.GroupBy(d => d.DateTime.Hour)
                                  .Select(g => new
                                  {
@@ -75,8 +99,8 @@ namespace eHealth.ViewModels
                 LineSize = 4,
                 PointMode = PointMode.Circle,
                 PointSize = 8,
-                MinValue = 0,  // Optionally set the minimum value of the y-axis
-                MaxValue = entries.Max(e => e.Value),  // Optionally set the maximum value of the y-axis
+                MinValue = 0,
+                MaxValue = entries.Any() ? Math.Max(entries.Max(e => e.Value), 1) : 1, // Ensure a reasonable max value
                 ValueLabelOrientation = Orientation.Horizontal,
                 LabelTextSize = 30
             };

@@ -1,4 +1,5 @@
-﻿using eHealth.Models;
+﻿using eHealth.Data;
+using eHealth.Service.Service;
 using eHealth.ViewModels;
 using eHealth.Views;
 using System;
@@ -14,6 +15,7 @@ namespace eHealth.Views
 {
     public partial class EContactPage : ContentPage
     {
+        
         EContactViewModel _viewModel;
 
         public EContactPage()

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("eHealth.Data")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3316c1604b45816e06823cab7657e03687c652c5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0aa302a02493137bb7c0477574ed20c0b937230b")]
 [assembly: System.Reflection.AssemblyProductAttribute("eHealth.Data")]
 [assembly: System.Reflection.AssemblyTitleAttribute("eHealth.Data")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

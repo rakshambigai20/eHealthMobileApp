@@ -31,6 +31,7 @@
 
     <TabBar>
         <ShellContent Title="Users" Icon="icon_about.png" ContentTemplate="{DataTemplate local:UserPage}" />
+        <ShellContent Title="Emergency" Icon="graph.jpg" ContentTemplate="{DataTemplate local:EmergencyPage}" />
         <ShellContent Title="Contacts" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:EContactPage}" />
     </TabBar>
 
@@ -38,10 +39,11 @@
         If you would like to navigate to this content you can do so by calling
         await Shell.Current.GoToAsync("//LoginPage");
     -->
-    <TabBar>
-        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
-    </TabBar>
 
+    <!-- <TabBar>
+        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
+    </TabBar-->
+    
     <!-- Register route for EContactDetailPage -->
     <ShellContent Route="EContactDetailPage" ContentTemplate="{DataTemplate local:EContactDetailPage}" />
     

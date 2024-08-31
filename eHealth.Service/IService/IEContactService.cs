@@ -12,8 +12,16 @@ namespace eHealth.Service.IService
         Task<EmergencyContacts> GetContact(int id);
         Task AddContact(T contact);
         Task UpdateContact(T contact);
+
+        Task UpdateAlertRecord(AlertRecord record);
         Task RemoveContact(int id);
-        Task HandleEmergency(string senderEmail, string senderPassword);
+        Task HandleEmergency(string senderEmail, string senderPassword, string emergencyReason);
         Task MakePhoneCall(string phoneNumber);
+
+        Task NotifyUserBeforeAlert(string senderEmail, string senderPassword, string alertReason);
+        void CancelAlert();
+
+
+
     }
 }

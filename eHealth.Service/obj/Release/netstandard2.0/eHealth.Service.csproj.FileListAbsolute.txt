@@ -1,4 +1,3 @@
-C:\Users\balar\source\repos\eHealth\eHealth.Service\bin\Release\netstandard2.0\Accord.dll.config
 C:\Users\balar\source\repos\eHealth\eHealth.Service\bin\Release\netstandard2.0\eHealth.Service.deps.json
 C:\Users\balar\source\repos\eHealth\eHealth.Service\bin\Release\netstandard2.0\eHealth.Service.dll
 C:\Users\balar\source\repos\eHealth\eHealth.Service\bin\Release\netstandard2.0\eHealth.Service.pdb

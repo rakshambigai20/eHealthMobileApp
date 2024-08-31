@@ -1,5 +1,4 @@
-﻿using eHealth.Models;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -27,7 +26,6 @@ namespace eHealth.ViewModels
         public EContactDetailViewModel()
         {
             MakeCallCommand = new Command(async () => await MakeCall());
-            HandleEmergencyCommand = new Command(async () => await HandleEmergency());
             EditCommand = new Command(OnEdit);
             SaveCommand = new Command(async () => await OnSave());
             ToolbarButtonText = "Edit";
@@ -114,21 +112,7 @@ namespace eHealth.ViewModels
             }
         }
 
-        private async Task HandleEmergency()
-        {
-            string senderEmail = await SecureStorage.GetAsync("email");
-            string senderPassword = await SecureStorage.GetAsync("password");
-
-            if (!string.IsNullOrEmpty(senderEmail) && !string.IsNullOrEmpty(senderPassword))
-            {
-                await econtactService.HandleEmergency(senderEmail, senderPassword);
-            }
-            else
-            {
-                Debug.WriteLine("Email or password not set in secure storage.");
-            }
-        }
-
+        
         private async Task MakeCall()
         {
             var contact = await econtactService.GetContact(contactId);
