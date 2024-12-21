@@ -1,9 +1,0 @@
-C:\Users\balar\source\repos\eHealth\eHealth\eHealth.Android\obj\Release\130\MonoAndroid,Version=v13.0.AssemblyAttributes.cs
-C:\Users\balar\source\repos\eHealth\eHealth\eHealth.Android\obj\Release\130\build.props
-C:\Users\balar\source\repos\eHealth\eHealth\eHealth.Android\obj\Release\130\adb.props
-C:\Users\balar\source\repos\eHealth\eHealth\eHealth.Android\obj\Release\130\eHealth.Android.csproj.AssemblyReference.cache
-C:\Users\balar\source\repos\eHealth\eHealth\eHealth.Android\obj\Release\130\_VerifyXamarinAndroidSupportVersions.stamp
-C:\Users\balar\source\repos\eHealth\eHealth\eHealth.Android\obj\Release\130\stamp\_BuildLibraryImportsCache.stamp
-C:\Users\balar\source\repos\eHealth\eHealth\eHealth.Android\obj\Release\130\res.flag
-C:\Users\balar\source\repos\eHealth\eHealth\eHealth.Android\obj\Release\130\stamp\_AndroidXJetifyEmbeddedFiles.stamp
-C:\Users\balar\source\repos\eHealth\eHealth\eHealth.Android\obj\Release\130\androidx\_AndroidXJetifyEmbeddedFiles.jetify
