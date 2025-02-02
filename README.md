@@ -1,4 +1,4 @@
-# eHealth Android Mobile Application
+# EHealth Android Mobile Application
 
 This is a mobile application developed as part of my dissertation project during my Master's in Computing at Sheffield Hallam University. This application is built using the **.NET MAUI** framework (formerly Xamarin) in C# with Visual Studio.
 
