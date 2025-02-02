@@ -7,17 +7,17 @@ This is a mobile application developed as part of my dissertation project during
 ## Table of Contents
 
 1. [Development Details](#development-details)
-2. [Introduction](#introduction)
-3. [Application Features and Screenshots](#application-features-and-screenshots)
+2.  [Application Features and Screenshots](#application-features-and-screenshots)
    - [Patient Details Page](#1-patient-details-page)
    - [Emergency Contacts Page](#2-emergency-contacts-page)
    - [Physical Mishaps Graph](#3-physical-mishaps-graph)
    - [Pre-Alert Notification](#4-pre-alert-notification)
    - [Notify Contacts](#5-notify-contacts)
-4. [Database Details](#database-details)
-5. [Installation](#installation)
-6. [Steps to Run the Application](#steps-to-run-the-application)
-7. [Steps to Run on a Physical Device](#steps-to-run-on-a-physical-device)
+3.  [Database Details](#database-details)
+4.  [Installation](#installation)
+5.   [Steps to Run the Application](#steps-to-run-the-application)
+6.   [Steps to Run on a Physical Device](#steps-to-run-on-a-physical-device)
+
 
 ---
 
@@ -29,22 +29,8 @@ This is a mobile application developed as part of my dissertation project during
 | **Development Framework**   | .NET MAUI (formerly Xamarin)                     |
 | **Development Architecture**| MVVM                                            |
 | **Development Platform**    | Visual Studio                                   |
-| **Data Storage Platform**   | SQLite Server Compact Toolbox                   |
+| **Data Storage Platform**   | SQLite Server Compact Toolbox, Azure SQL        |
 | **State of the Art Approach**| Fuzzy Logic                                    |
-
----
-
-## Introduction
-
-The increasing elderly population presents significant challenges, leading to the need for innovative solutions to ensure their safety and well-being. This project involves the development of a wearable bracelet equipped with accelerometers, integrated with a mobile application for the remote monitoring of elderly individuals.
-
-The prototype mobile application utilizes the phone's accelerometer to detect and record movements. It employs fuzzy logic-based artificial intelligence to interpret activity data and generate timely email alerts for caregivers or family members when abnormal behavior is detected. Key features include:
-
-- **Activity Classification**: Detects falls, idle states, and active periods.
-- **Pre-Alert Notification System**: Improves accuracy and reduces false alarms.
-- **High Detection Accuracy**: Achieves 90% for fall detection and 93% for idle detection.
-
-This solution offers a reliable, user-friendly approach for continuous elderly care, with potential for future enhancements, including integration with a wearable bracelet.
 
 ---
 
